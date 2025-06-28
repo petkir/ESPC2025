@@ -14,11 +14,9 @@ We have a React-based SPFx web part (v1.22) that consumes:
 The solution supports full local debugging with the following setup:
 
 1. **Start Azure Function** locally
-2. **Start Dev Tunnel** (if needed for callbacks or Graph proxying)
 3. **Build SPFx** (with the tunnel URL injected into `.env`)
-4. Open the **Workbench** to run and test
+4. Open the **Workbench** to run and test (`serve.json`)
 
----
 
 ## 📁 Folder Structure
 
@@ -28,13 +26,11 @@ The solution supports full local debugging with the following setup:
 
 
 
----
-
 ## 🧪 Requirements for Local Development
 
-- Node.js 18+
-- SharePoint Framework CLI
-- Microsoft Graph CLI (for login/testing)
+- Node.js 22+
+- SharePoint Framework 
+- M365 cli (for login/testing)
 - .NET SDK (for Azure Functions)
 - Dev Tunnel (`devtunnel`) if webhooks are tested
 - Microsoft Dev Proxy (optional but recommended)
@@ -49,8 +45,6 @@ We use **Microsoft Dev Proxy** in 3 configurations:
 1. **Monitoring Mode**: Observe live calls to SharePoint and Graph
 2. **Static Mock (0% error rate)**: Use predefined responses to simulate APIs
 3. **Static Mock (High error rate)**: Simulate flaky network/API to test resilience
-
----
 
 ## 🚀 Requirements for Deployment
 
