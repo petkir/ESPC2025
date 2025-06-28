@@ -84,6 +84,7 @@ SPFx 1.22 includes support for environment-specific serveConfigurations
 
 Webpart
 Warehouse ( API + OpenAPI *to session with Agent Toolkit (...) ).
+multi webparts .... 
 
 
 
