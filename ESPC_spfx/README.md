@@ -71,7 +71,7 @@ Packaging and deploying the SPFx solution
 
 Setting tenant-specific configs via CLI for M365
 
-📌 Key Facts
+## 📌 Key Facts
 Use devtunnel only when triggering from the cloud (e.g., Graph webhooks or testing inbound API calls from M365)
 
 Use .env files to manage tenant-specific configurations
@@ -80,7 +80,14 @@ Dev Proxy helps simulate Graph and SharePoint APIs under various conditions
 
 SPFx 1.22 includes support for environment-specific serveConfigurations
 
-📎 Resources
+....
+
+Webpart
+Warehouse ( API + OpenAPI *to session with Agent Toolkit (...) ).
+
+
+
+## 📎 Resources
 Microsoft Dev Proxy
 
 SPFx Docs
