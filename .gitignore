@@ -417,3 +417,4 @@ FodyWeavers.xsd
 *.msm
 *.msp
 
+ESPC_llm/local_01_chat/escp25.local.llm/escp25.local.llm.Server/chat.db-*
