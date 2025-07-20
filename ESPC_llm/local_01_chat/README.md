@@ -52,7 +52,7 @@ This is a complete chat application built with .NET 9 and React 19 that includes
 1. **Node.js** (v18 or higher)
 2. **.NET 9 SDK**
 3. **Ollama** running locally
-4. **Azure AD App Registration** (for Entra ID authentication)
+4. **[Azure AD App Registration](SETUP_AZURE.md)** (for Entra ID authentication)
 
 ## Quick Setup (Recommended)
 
@@ -171,18 +171,19 @@ Update `appsettings.json` and `appsettings.Development.json`:
 ```
 
 #### Frontend Configuration
-Update `src/authConfig.ts`:
+Create a `.env` file in the `escp25.local.llm.client` directory (copy from `.env.example`):
 
-```typescript
-export const msalConfig: Configuration = {
-  auth: {
-    clientId: 'your-client-id',
-    authority: 'https://login.microsoftonline.com/your-tenant-id',
-    redirectUri: window.location.origin,
-  },
-  // ... rest of config
-};
+```bash
+# Azure AD Configuration
+VITE_AZURE_CLIENT_ID=your-client-id-here
+VITE_AZURE_TENANT_ID=your-tenant-id-here
+VITE_AZURE_DOMAIN=your-domain.onmicrosoft.com
+
+# API Configuration
+VITE_API_BASE_URL=http://localhost:5227/api
 ```
+
+The `src/authConfig.ts` file is already configured to read these environment variables automatically.
 
 ### 4. Running the Application
 
