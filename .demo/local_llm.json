@@ -1,0 +1,154 @@
+{
+  "$schema": "https://demotime.show/demo-time.schema.json",
+  "title": "00 Local LLM",
+  "version": 2,
+  "demos": [
+    {
+      "title": "Start OLLAMA",
+      "description": "
+",
+      "steps": [
+        {
+          "action": "open",
+          "path": "ESPC_llm/local_00_start/start-llm.sh"
+        },
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_00_start/start-llm.sh",
+          "position": "3:14",
+          "highlightWholeLine": true
+        },
+        {
+          "action": "markdownPreview",
+          "path": ".demo/slides/OLLAMA.md"
+        },
+        {
+          "action": "open",
+          "path": "ESPC_llm/local_00_start/start-llm.sh"
+        },
+        {
+          "action": "openTerminal",
+          "terminalId": "ollama"
+        },
+        {
+          "action": "executeTerminalCommand",
+          "terminalId": "ollama",
+          "command": "cd ESPC_llm/local_00_start ",
+          "insertTypingMode": "character-by-character",
+          "insertTypingSpeed": 200
+        },
+        {
+          "action": "executeTerminalCommand",
+          "terminalId": "ollama",
+          "command": "ollama serve &",
+          "autoExecute": true,
+          "insertTypingMode": "character-by-character",
+          "insertTypingSpeed": 200
+        },
+        {
+          "action": "executeTerminalCommand",
+          "terminalId": "ollama",
+          "command": "ollama list",
+          "autoExecute": true,
+          "insertTypingMode": "character-by-character",
+          "insertTypingSpeed": 200
+        },
+        
+        
+       
+       
+      ],
+      "icons": {
+        "start": "account",
+        "end": "array"
+      }
+    },
+    {
+      "id": "demo-mif2d007-sv3g",
+      "title": "show installed models",
+      "steps": [
+        {
+          "action": "executeTerminalCommand",
+          "terminalId": "ollama",
+          "command": "ollama list",
+          "autoExecute": true,
+          "insertTypingMode": "character-by-character",
+          "insertTypingSpeed": 100
+        }
+      ]
+    },
+
+    {
+      "id": "123",
+      "title": "streming response",
+      "steps": [
+         {
+          "action": "highlight",
+          "path": "ESPC_llm/local_00_start/llm-test.http",
+          "position": "24,0:24,18",
+          "highlightWholeLine": false
+        }
+      ]
+    },
+    {
+      "id": "demo-mif2ef5d-i0i9",
+      "title": "show http request",
+      "steps": [
+        {
+          "action": "open",
+          "path": "ESPC_llm/local_00_start/llm-test.http"
+        },
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_00_start/llm-test.http",
+          "position": "13:25",
+          "highlightWholeLine": true
+        },
+      ]
+    },
+    {
+      "id": "demo-mif2expt-jgiq",
+      "title": "show SSE",
+      "steps": [
+         {
+          "action": "replace",
+          "path": "ESPC_llm/local_00_start/llm-test.http",
+          "content": "  \"stream\": false",
+          "position": "24",
+          "highlightWholeLine": false
+        }
+      ]
+    },
+    {
+      "id": "demo-mif2fgd3-3t35",
+      "title": "close ollama",
+      "steps": [
+        {
+          "action": "executeTerminalCommand",
+          "command": "pkill ollama  ",
+          "terminalId": "ollama",
+          "insertTypingMode": "character-by-character",
+          "insertTypingSpeed": 200
+        }
+      ]
+    },
+    {
+      "id": "demo-mif2fgd3-3t32",
+      "title": "show deepseek",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_00_start/llm-test.http",
+          "position": "32",
+          "highlightWholeLine": true
+        },
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_00_start/llm-test.http",
+          "position": "30",
+          "highlightWholeLine": true
+        }
+      ]
+    }
+  ]
+}

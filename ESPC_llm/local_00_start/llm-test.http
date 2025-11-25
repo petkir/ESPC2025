@@ -1,0 +1,152 @@
+### Test Ollama/DeepSeek Local LLM
+### Make sure the LLM is running: ./start-llm.sh
+
+@baseUrl = http://localhost:11434
+
+### 1. Check Ollama version
+GET {{baseUrl}}/api/version
+
+### 2. List available models
+GET {{baseUrl}}/api/tags
+
+### 3. Simple chat completion with llama3.2
+POST {{baseUrl}}/api/chat
+Content-Type: application/json
+
+{
+  "model": "llama3.2",
+  "messages": [
+    {
+      "role": "user",
+      "content": "What is the capital of Irland?"
+    }
+  ],
+sttrue
+}
+
+### 4. Chat with DeepSeek model
+POST {{baseUrl}}/api/chat
+Content-Type: application/json
+
+{
+  "model": "deepseek-r1:1.5b",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Explain recursion in simple terms"
+    }
+  ],
+  "stream": false
+}
+
+### 5. Multi-turn conversation
+POST {{baseUrl}}/api/chat
+Content-Type: application/json
+
+{
+  "model": "llama3.2",
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a helpful coding assistant"
+    },
+    {
+      "role": "user",
+      "content": "Write a Node function to calculate fibonacci numbers"
+    }
+  ],
+  "stream": false
+}
+
+### 6. Chat with streaming response
+POST {{baseUrl}}/api/chat
+Content-Type: application/json
+
+{
+  "model": "llama3.2",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Tell me a short joke"
+    }
+  ],
+  "stream": true
+}
+
+### 7. Generate completion (alternative API)
+POST {{baseUrl}}/api/generate
+Content-Type: application/json
+
+{
+  "model": "llama3.2",
+  "prompt": "The three primary colors are",
+  "stream": false
+}
+
+### 8. Chat with temperature control (more creative)
+POST {{baseUrl}}/api/chat
+Content-Type: application/json
+
+{
+  "model": "llama3.2",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Write a creative haiku about coding"
+    }
+  ],
+  "stream": false,
+  "options": {
+    "temperature": 0.9,
+    "top_p": 0.9
+  }
+}
+
+### 9. Chat with temperature control (more deterministic)
+POST {{baseUrl}}/api/chat
+Content-Type: application/json
+
+{
+  "model": "llama3.2",
+  "messages": [
+    {
+      "role": "user",
+      "content": "What is 2+2?"
+    }
+  ],
+  "stream": false,
+  "options": {
+    "temperature": 0.1
+  }
+}
+
+### 10. Code generation with qwen2.5-coder (if available)
+POST {{baseUrl}}/api/chat
+Content-Type: application/json
+
+{
+  "model": "qwen2.5-coder:1.5b",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Write a TypeScript function to debounce a function call"
+    }
+  ],
+  "stream": false
+}
+
+### 11. Pull a new model (this will take time)
+# POST {{baseUrl}}/api/pull
+# Content-Type: application/json
+# 
+# {
+#   "name": "llama3.2:1b"
+# }
+
+### 12. Show model information
+POST {{baseUrl}}/api/show
+Content-Type: application/json
+
+{
+  "name": "llama3.2"
+}
