@@ -1,12 +1,46 @@
 {
   "$schema": "https://demotime.show/demo-time.schema.json",
   "title": "00 Local LLM",
-  "version": 2,
+  "version": 3,
   "demos": [
     {
       "title": "Start OLLAMA",
-      "description": "
-",
+      "description": "Start the Ollama local LLM server to run local language models.",
+      "steps": [
+        {
+          "action": "open",
+          "path": "ESPC_llm/local_00_start/start-llm.sh"
+        },
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_00_start/start-llm.sh",
+          "position": "3:14",
+          "highlightWholeLine": true
+        }
+      ],
+      "icons": {
+        "start": "",
+        "end": ""
+      }
+    },
+    {
+      "title": "what is OLLAMA",
+      "description": "Start the Ollama local LLM server to run local language models.",
+      "steps": [
+        {
+          "action": "markdownPreview",
+          "path": ".demo/slides/OLLAMA.md"
+        }
+      ],
+      "icons": {
+        "start": "",
+        "end": ""
+      },
+      "id": "demo-mif32wtw-ioow"
+    },
+    {
+      "title": "show terminal",
+      "description": "\n",
       "steps": [
         {
           "action": "open",
@@ -44,24 +78,13 @@
           "autoExecute": true,
           "insertTypingMode": "character-by-character",
           "insertTypingSpeed": 200
-        },
-        {
-          "action": "executeTerminalCommand",
-          "terminalId": "ollama",
-          "command": "ollama list",
-          "autoExecute": true,
-          "insertTypingMode": "character-by-character",
-          "insertTypingSpeed": 200
-        },
-        
-        
-       
-       
+        }
       ],
       "icons": {
-        "start": "account",
-        "end": "array"
-      }
+        "start": "",
+        "end": ""
+      },
+      "id": "demo-mif2z2a2-i76a"
     },
     {
       "id": "demo-mif2d007-sv3g",
@@ -74,19 +97,6 @@
           "autoExecute": true,
           "insertTypingMode": "character-by-character",
           "insertTypingSpeed": 100
-        }
-      ]
-    },
-
-    {
-      "id": "123",
-      "title": "streming response",
-      "steps": [
-         {
-          "action": "highlight",
-          "path": "ESPC_llm/local_00_start/llm-test.http",
-          "position": "24,0:24,18",
-          "highlightWholeLine": false
         }
       ]
     },
@@ -103,19 +113,77 @@
           "path": "ESPC_llm/local_00_start/llm-test.http",
           "position": "13:25",
           "highlightWholeLine": true
-        },
+        }
+      ]
+    },
+    {
+      "id": "123",
+      "title": "streming response",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_00_start/llm-test.http",
+          "position": "24,0:24,18",
+          "highlightWholeLine": false
+        }
       ]
     },
     {
       "id": "demo-mif2expt-jgiq",
       "title": "show SSE",
       "steps": [
-         {
+        {
           "action": "replace",
           "path": "ESPC_llm/local_00_start/llm-test.http",
-          "content": "  \"stream\": false",
+          "content": "  \"stream\": true",
           "position": "24",
           "highlightWholeLine": false
+        }
+      ]
+    },
+    {
+      "id": "demo-mif3dvph-s5d8",
+      "title": "what is SSE",
+      "steps": [
+        {
+          "action": "markdownPreview",
+          "path": ".demo/slides/SSE.md"
+        }
+      ]
+    },
+    {
+      "id": "demo-mif2fgd3-3t32",
+      "title": "show deepseek",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_00_start/llm-test.http",
+          "position": "32:32",
+          "highlightWholeLine": false
+        }
+      ]
+    },
+    {
+      "id": "demo-mif3nw0m-scld",
+      "title": "Multi-turn conversation system",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_00_start/llm-test.http",
+          "position": "50:51",
+          "highlightWholeLine": true
+        }
+      ]
+    },
+    {
+      "id": "demo-mif3qu76-vu0o",
+      "title": "Multi-turn conversation user",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_00_start/llm-test.http",
+          "position": "54:55",
+          "highlightWholeLine": true
         }
       ]
     },
@@ -129,24 +197,13 @@
           "terminalId": "ollama",
           "insertTypingMode": "character-by-character",
           "insertTypingSpeed": 200
-        }
-      ]
-    },
-    {
-      "id": "demo-mif2fgd3-3t32",
-      "title": "show deepseek",
-      "steps": [
-        {
-          "action": "highlight",
-          "path": "ESPC_llm/local_00_start/llm-test.http",
-          "position": "32",
-          "highlightWholeLine": true
         },
         {
-          "action": "highlight",
+          "action": "replace",
           "path": "ESPC_llm/local_00_start/llm-test.http",
-          "position": "30",
-          "highlightWholeLine": true
+          "content": "  \"stream\": false",
+          "position": "24",
+          "highlightWholeLine": false
         }
       ]
     }

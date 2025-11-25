@@ -21,7 +21,7 @@ Content-Type: application/json
       "content": "What is the capital of Irland?"
     }
   ],
-sttrue
+  "stream": false
 }
 
 ### 4. Chat with DeepSeek model
