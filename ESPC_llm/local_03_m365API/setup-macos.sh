@@ -154,18 +154,18 @@ check_ollama() {
 # Install frontend dependencies
 install_frontend_deps() {
     print_status "Installing frontend dependencies..."
-    if [ -d "escp25.local.llm/escp25.local.llm.client" ]; then
-        cd escp25.local.llm/escp25.local.llm.client
+    if [ -d "espc25.local.llm/espc25.local.llm.client" ]; then
+        cd espc25.local.llm/espc25.local.llm.client
         if [ -f "package.json" ]; then
             npm install
             print_success "Frontend dependencies installed successfully"
         else
-            print_error "package.json not found in escp25.local.llm/escp25.local.llm.client"
+            print_error "package.json not found in espc25.local.llm/espc25.local.llm.client"
             exit 1
         fi
         cd ../..
     else
-        print_error "Frontend directory escp25.local.llm/escp25.local.llm.client not found"
+        print_error "Frontend directory espc25.local.llm/espc25.local.llm.client not found"
         exit 1
     fi
 }
@@ -173,18 +173,18 @@ install_frontend_deps() {
 # Restore backend dependencies
 restore_backend_deps() {
     print_status "Restoring backend dependencies..."
-    if [ -d "escp25.local.llm/escp25.local.llm.Server" ]; then
-        cd escp25.local.llm/escp25.local.llm.Server
-        if [ -f "escp25.local.llm.Server.csproj" ]; then
+    if [ -d "espc25.local.llm/espc25.local.llm.Server" ]; then
+        cd espc25.local.llm/espc25.local.llm.Server
+        if [ -f "espc25.local.llm.Server.csproj" ]; then
             dotnet restore
             print_success "Backend dependencies restored successfully"
         else
-            print_error "escp25.local.llm.Server.csproj not found"
+            print_error "espc25.local.llm.Server.csproj not found"
             exit 1
         fi
         cd ../..
     else
-        print_error "Backend directory escp25.local.llm/escp25.local.llm.Server not found"
+        print_error "Backend directory espc25.local.llm/espc25.local.llm.Server not found"
         exit 1
     fi
 }
@@ -213,7 +213,7 @@ initialize_qdrant_documents() {
             
             # Start Qdrant container
             print_status "Starting Qdrant container..."
-            docker run -d --name qdrant-escp25 -p 6333:6333 -p 6334:6334 qdrant/qdrant
+            docker run -d --name qdrant-espc25 -p 6333:6333 -p 6334:6334 qdrant/qdrant
             
             # Wait for Qdrant to be ready
             print_status "Waiting for Qdrant to be ready..."
@@ -237,9 +237,9 @@ initialize_qdrant_documents() {
         fi
         
         # Run the document initialization
-        if [ -d "escp25.local.llm.qdrant.init" ]; then
-            cd escp25.local.llm.qdrant.init
-            if [ -f "escp25.local.llm.qdrant.init.csproj" ]; then
+        if [ -d "espc25.local.llm.qdrant.init" ]; then
+            cd espc25.local.llm.qdrant.init
+            if [ -f "espc25.local.llm.qdrant.init.csproj" ]; then
                 print_status "Restoring Qdrant init project dependencies..."
                 dotnet restore
                 
@@ -272,7 +272,7 @@ start_application() {
         print_warning "Port 5001 is already in use. Backend might already be running."
     else
         print_status "Starting backend server..."
-        cd escp25.local.llm/escp25.local.llm.Server
+        cd espc25.local.llm/espc25.local.llm.Server
         dotnet run &
         BACKEND_PID=$!
         cd ../..
@@ -283,7 +283,7 @@ start_application() {
         print_warning "Port 5173 is already in use. Frontend might already be running."
     else
         print_status "Starting frontend development server..."
-        cd escp25.local.llm/escp25.local.llm.client
+        cd espc25.local.llm/espc25.local.llm.client
         npm run dev &
         FRONTEND_PID=$!
         cd ../..

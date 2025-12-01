@@ -241,8 +241,8 @@ REM Install frontend dependencies
 echo.
 echo %INFO% Installing dependencies...
 echo %INFO% Installing frontend dependencies...
-if exist "escp25.local.llm\escp25.local.llm.client" (
-    cd escp25.local.llm\escp25.local.llm.client
+if exist "espc25.local.llm\espc25.local.llm.client" (
+    cd espc25.local.llm\espc25.local.llm.client
     if exist "package.json" (
         npm install
         if %errorLevel% == 0 (
@@ -253,22 +253,22 @@ if exist "escp25.local.llm\escp25.local.llm.client" (
             exit /b 1
         )
     ) else (
-        echo %ERROR% package.json not found in escp25.local.llm\escp25.local.llm.client
+        echo %ERROR% package.json not found in espc25.local.llm\espc25.local.llm.client
         pause
         exit /b 1
     )
     cd ..\..
 ) else (
-    echo %ERROR% Frontend directory escp25.local.llm\escp25.local.llm.client not found
+    echo %ERROR% Frontend directory espc25.local.llm\espc25.local.llm.client not found
     pause
     exit /b 1
 )
 
 REM Restore backend dependencies
 echo %INFO% Restoring backend dependencies...
-if exist "escp25.local.llm\escp25.local.llm.Server" (
-    cd escp25.local.llm\escp25.local.llm.Server
-    if exist "escp25.local.llm.Server.csproj" (
+if exist "espc25.local.llm\espc25.local.llm.Server" (
+    cd espc25.local.llm\espc25.local.llm.Server
+    if exist "espc25.local.llm.Server.csproj" (
         dotnet restore
         if %errorLevel% == 0 (
             echo %SUCCESS% Backend dependencies restored successfully
@@ -278,13 +278,13 @@ if exist "escp25.local.llm\escp25.local.llm.Server" (
             exit /b 1
         )
     ) else (
-        echo %ERROR% escp25.local.llm.Server.csproj not found
+        echo %ERROR% espc25.local.llm.Server.csproj not found
         pause
         exit /b 1
     )
     cd ..\..
 ) else (
-    echo %ERROR% Backend directory escp25.local.llm\escp25.local.llm.Server not found
+    echo %ERROR% Backend directory espc25.local.llm\espc25.local.llm.Server not found
     pause
     exit /b 1
 )
@@ -299,7 +299,7 @@ if %errorLevel% == 0 (
     echo %WARNING% Port 5001 is already in use. Backend might already be running.
 ) else (
     echo %INFO% Starting backend server...
-    cd escp25.local.llm\escp25.local.llm.Server
+    cd espc25.local.llm\espc25.local.llm.Server
     start /b dotnet run
     cd ..\..
     echo %SUCCESS% Backend server started on https://localhost:5001
@@ -310,7 +310,7 @@ if %errorLevel% == 0 (
     echo %WARNING% Port 5173 is already in use. Frontend might already be running.
 ) else (
     echo %INFO% Starting frontend development server...
-    cd escp25.local.llm\escp25.local.llm.client
+    cd espc25.local.llm\espc25.local.llm.client
     start /b npm run dev
     cd ..\..
     echo %SUCCESS% Frontend development server started on http://localhost:5173

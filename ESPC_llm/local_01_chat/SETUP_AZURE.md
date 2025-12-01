@@ -5,7 +5,7 @@ This guide walks you through settin2. **Set Application ID URI**
    - Accept the default (`api://{client-id}`) or customize it:
 
      ```text
-     api://escp25-local-llm-chat
+     api://espc25-local-llm-chat
      ```
 
    - Click **"Save"** Azure App Registration for the ESPC25 Local LLM Chat Application with proper authentication and API scopes.

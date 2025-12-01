@@ -83,7 +83,7 @@ If ports 5001 or 5173 are already in use:
 
 After running the setup scripts, you'll need to configure:
 
-1. **Azure AD settings** in `escp25.local.llm.Server/appsettings.json`
-2. **Frontend auth** in `escp25.local.llm.client/src/authConfig.ts`
+1. **Azure AD settings** in `espc25.local.llm.Server/appsettings.json`
+2. **Frontend auth** in `espc25.local.llm.client/src/authConfig.ts`
 
 See the main README.md for detailed configuration instructions.

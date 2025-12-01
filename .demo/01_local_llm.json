@@ -24,12 +24,12 @@
       "steps": [
         {
           "action": "open",
-          "path": "ESPC_llm/local_01_chat/escp25.local.llm/escp25.local.llm.Server/Program.cs",
+          "path": "ESPC_llm/local_01_chat/espc25.local.llm/espc25.local.llm.Server/Program.cs",
           "disabled": true
         },
         {
           "action": "highlight",
-          "path": "ESPC_llm/local_01_chat/escp25.local.llm/escp25.local.llm.Server/Program.cs",
+          "path": "ESPC_llm/local_01_chat/espc25.local.llm/espc25.local.llm.Server/Program.cs",
           "position": "15:17",
           "highlightWholeLine": true
         }
@@ -41,7 +41,7 @@
       "steps": [
         {
           "action": "highlight",
-          "path": "ESPC_llm/local_01_chat/escp25.local.llm/escp25.local.llm.Server/Program.cs",
+          "path": "ESPC_llm/local_01_chat/espc25.local.llm/espc25.local.llm.Server/Program.cs",
           "position": "18:24",
           "highlightWholeLine": true
         }
@@ -53,7 +53,7 @@
       "steps": [
         {
           "action": "highlight",
-          "path": "ESPC_llm/local_01_chat/escp25.local.llm/escp25.local.llm.Server/Program.cs",
+          "path": "ESPC_llm/local_01_chat/espc25.local.llm/espc25.local.llm.Server/Program.cs",
           "position": "27:30",
           "highlightWholeLine": true
         }
@@ -65,7 +65,7 @@
       "steps": [
         {
           "action": "highlight",
-          "path": "ESPC_llm/local_01_chat/escp25.local.llm/escp25.local.llm.Server/Program.cs",
+          "path": "ESPC_llm/local_01_chat/espc25.local.llm/espc25.local.llm.Server/Program.cs",
           "position": "34:34",
           "highlightWholeLine": true
         }
@@ -77,7 +77,7 @@
       "steps": [
         {
           "action": "highlight",
-          "path": "ESPC_llm/local_01_chat/escp25.local.llm/escp25.local.llm.Server/Controllers/ChatController.cs",
+          "path": "ESPC_llm/local_01_chat/espc25.local.llm/espc25.local.llm.Server/Controllers/ChatController.cs",
           "position": "272:272",
           "highlightWholeLine": true
         }
@@ -89,7 +89,7 @@
       "steps": [
         {
           "action": "highlight",
-          "path": "ESPC_llm/local_01_chat/escp25.local.llm/escp25.local.llm.Server/Controllers/ChatController.cs",
+          "path": "ESPC_llm/local_01_chat/espc25.local.llm/espc25.local.llm.Server/Controllers/ChatController.cs",
           "position": "299:299",
           "highlightWholeLine": true
         }
@@ -101,7 +101,7 @@
       "steps": [
         {
           "action": "highlight",
-          "path": "ESPC_llm/local_01_chat/escp25.local.llm/escp25.local.llm.Server/Controllers/ChatController.cs",
+          "path": "ESPC_llm/local_01_chat/espc25.local.llm/espc25.local.llm.Server/Controllers/ChatController.cs",
           "position": "308:308",
           "highlightWholeLine": true
         }
@@ -113,7 +113,7 @@
       "steps": [
         {
           "action": "highlight",
-          "path": "ESPC_llm/local_01_chat/escp25.local.llm/escp25.local.llm.Server/Controllers/ChatController.cs",
+          "path": "ESPC_llm/local_01_chat/espc25.local.llm/espc25.local.llm.Server/Controllers/ChatController.cs",
           "position": "310:321",
           "highlightWholeLine": true
         }
@@ -125,7 +125,7 @@
       "steps": [
         {
           "action": "highlight",
-          "path": "ESPC_llm/local_01_chat/escp25.local.llm/escp25.local.llm.Server/Controllers/ChatController.cs",
+          "path": "ESPC_llm/local_01_chat/espc25.local.llm/espc25.local.llm.Server/Controllers/ChatController.cs",
           "position": "330:335",
           "highlightWholeLine": true
         }
@@ -137,7 +137,7 @@
       "steps": [
         {
           "action": "highlight",
-          "path": "ESPC_llm/local_01_chat/escp25.local.llm/escp25.local.llm.client/src/components/ChatInterface.tsx",
+          "path": "ESPC_llm/local_01_chat/espc25.local.llm/espc25.local.llm.client/src/components/ChatInterface.tsx",
           "position": "279:290",
           "highlightWholeLine": true
         }
@@ -149,7 +149,7 @@
       "steps": [
         {
           "action": "highlight",
-          "path": "ESPC_llm/local_01_chat/escp25.local.llm/escp25.local.llm.client/src/components/ChatInterface.tsx",
+          "path": "ESPC_llm/local_01_chat/espc25.local.llm/espc25.local.llm.client/src/components/ChatInterface.tsx",
           "position": "296:296",
           "highlightWholeLine": true
         }
@@ -161,7 +161,7 @@
       "steps": [
         {
           "action": "highlight",
-          "path": "ESPC_llm/local_01_chat/escp25.local.llm/escp25.local.llm.client/src/components/ChatInterface.tsx",
+          "path": "ESPC_llm/local_01_chat/espc25.local.llm/espc25.local.llm.client/src/components/ChatInterface.tsx",
           "position": "218:221",
           "highlightWholeLine": true
         }
@@ -173,7 +173,7 @@
       "steps": [
         {
           "action": "highlight",
-          "path": "ESPC_llm/local_01_chat/escp25.local.llm/escp25.local.llm.client/src/components/ChatInterface.tsx",
+          "path": "ESPC_llm/local_01_chat/espc25.local.llm/espc25.local.llm.client/src/components/ChatInterface.tsx",
           "highlightWholeLine": true,
           "position": "305:307"
         }

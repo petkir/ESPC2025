@@ -1,0 +1,6 @@
+@espc25.local.llm.Server_HostAddress = http://localhost:5227
+
+GET {{espc25.local.llm.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

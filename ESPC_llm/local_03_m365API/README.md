@@ -207,7 +207,7 @@ Update `appsettings.json` and `appsettings.Development.json`:
 ```
 
 #### Frontend Configuration
-Create a `.env` file in the `escp25.local.llm.client` directory (copy from `.env.example`):
+Create a `.env` file in the `espc25.local.llm.client` directory (copy from `.env.example`):
 
 ```bash
 # Azure AD Configuration
@@ -225,19 +225,19 @@ The `src/authConfig.ts` file is already configured to read these environment var
 
 #### Start Backend
 ```bash
-cd escp25.local.llm/escp25.local.llm.Server
+cd espc25.local.llm/espc25.local.llm.Server
 dotnet run
 ```
 
 #### Start Frontend (Development)
 ```bash
-cd escp25.local.llm/escp25.local.llm.client
+cd espc25.local.llm/espc25.local.llm.client
 npm run dev
 ```
 
 #### Start Both (Production)
 ```bash
-cd escp25.local.llm/escp25.local.llm.Server
+cd espc25.local.llm/espc25.local.llm.Server
 dotnet run
 # The backend will serve the React app at https://localhost:5001
 # frontend will be served at  https://localhost:54375/
