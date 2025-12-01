@@ -125,5 +125,25 @@
         }
       ]
     }
+    {
+      "id": "demo-mif2fed3-3t95",
+      "title": "close ollama",
+      "steps": [
+        {
+          "action": "executeTerminalCommand",
+          "command": "pkill ollama  ",
+          "terminalId": "vectorsample"
+        },
+        {
+          "action": "executeTerminalCommand",
+          "command": "lsof -ti:5227 | xargs kill -9",
+          "terminalId": "vectorsample"
+        },
+        {
+          "action": "closeTerminal",
+          "terminalId": "vectorsample"
+        }
+      ]
+    }
   ]
 }

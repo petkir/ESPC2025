@@ -276,7 +276,7 @@ start_application() {
         cd espc25.local.llm.Server
         dotnet run &
         BACKEND_PID=$!
-        cd ../..
+        cd ..
         print_success "Backend server started on https://localhost:5001"
     fi
     
@@ -284,10 +284,10 @@ start_application() {
         print_warning "Port 5173 is already in use. Frontend might already be running."
     else
         print_status "Starting frontend development server..."
-        cd espc25.local.llm/espc25.local.llm.client
+        cd espc25.local.llm.client
         npm run dev &
         FRONTEND_PID=$!
-        cd ../..
+        cd ../
         print_success "Frontend development server started on http://localhost:5173"
     fi
     

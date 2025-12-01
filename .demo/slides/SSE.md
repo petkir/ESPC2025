@@ -3,7 +3,7 @@ theme: default
 layout: default
 ---
 
-## Server‑Sent Events (SSE)
+## Server‑Side Events (SSE)
 
 ```
 export interface AssistantMessage {

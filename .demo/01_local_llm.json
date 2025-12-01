@@ -13,8 +13,13 @@
         },
         {
           "action": "executeTerminalCommand",
-          "terminalId": "olamaChat",
-          "command": "ESPC_llm/local_01_chat/setup-macos.sh"
+          "command": " cd ESPC_llm/local_01_chat",
+          "terminalId": "demo01"
+        },
+        {
+          "action": "executeTerminalCommand",
+          "terminalId": "demo01",
+          "command": "./setup-macos.sh"
         }
       ]
     },
@@ -162,7 +167,7 @@
         {
           "action": "highlight",
           "path": "ESPC_llm/local_01_chat/espc25.local.llm/espc25.local.llm.client/src/components/ChatInterface.tsx",
-          "position": "218:221",
+          "position": "318:321",
           "highlightWholeLine": true
         }
       ]
@@ -176,6 +181,28 @@
           "path": "ESPC_llm/local_01_chat/espc25.local.llm/espc25.local.llm.client/src/components/ChatInterface.tsx",
           "highlightWholeLine": true,
           "position": "305:307"
+        }
+      ]
+    },
+    {
+      "id": "demo-mif2fed3-3t35",
+      "title": "close ollama",
+      "steps": [
+        {
+          "action": "executeTerminalCommand",
+          "command": "pkill ollama  ",
+          "terminalId": "demo01",
+          "insertTypingMode": "character-by-character",
+          "insertTypingSpeed": 200
+        },
+        {
+          "action": "executeTerminalCommand",
+          "command": "lsof -ti:5227 | xargs kill -9",
+          "terminalId": "demo01"
+        },
+        {
+          "action": "closeTerminal",
+          "terminalId": "demo01"
         }
       ]
     }

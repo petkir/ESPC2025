@@ -126,7 +126,7 @@
     },
     {
       "id": "demo-mif2expt-jgiq",
-      "title": "show SSE",
+      "title": "Replace streaming",
       "steps": [
         {
           "action": "replace",
@@ -169,6 +169,12 @@
           "content": "  \"stream\": true",
           "highlightWholeLine": false,
           "position": "39"
+        },
+        {
+          "action": "highlight",
+          "position": "39",
+          "highlightWholeLine": true,
+          "path": "ESPC_llm/local_00_start/llm-test.http"
         }
       ]
     },
@@ -244,6 +250,15 @@
           "content": "  \"stream\": false",
           "position": "39",
           "highlightWholeLine": false
+        },
+        {
+          "action": "executeTerminalCommand",
+          "command": "lsof -ti:5227 | xargs kill -9",
+          "terminalId": "ollama"
+        },
+        {
+          "action": "closeTerminal",
+          "terminalId": "ollama"
         }
       ]
     }
