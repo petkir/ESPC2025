@@ -42,10 +42,27 @@ builder.Services.AddSingleton<QdrantClient>(serviceProvider =>
 {
     var configuration = serviceProvider.GetRequiredService<IConfiguration>();
     var endpoint = configuration["Qdrant:Endpoint"] ?? "http://localhost:6333";
-    return new QdrantClient(endpoint);
+    // Defensive: allow full URLs, strip path/query/fragment, and pass discrete values
+    Uri uri;
+    try
+    {
+        uri = new Uri(endpoint);
+    }
+    catch
+    {
+        // If a bare host was provided (e.g., "localhost"), default port and scheme
+        uri = new Uri("http://" + endpoint.Trim());
+    }
+
+    var https = string.Equals(uri.Scheme, "https", StringComparison.OrdinalIgnoreCase);
+    var host = uri.Host;
+    var port = uri.IsDefaultPort ? (https ? 6334 : 6333) : uri.Port;
+
+    return new QdrantClient(host: host, port: port, https: https, apiKey: configuration["Qdrant:ApiKey"]);
 });
 
 // Configure Semantic Memory with Qdrant
+
 #pragma warning disable SKEXP0001, SKEXP0020, SKEXP0070 // Type is for evaluation purposes only
 builder.Services.AddSingleton<ISemanticTextMemory>(serviceProvider =>
 {
@@ -55,12 +72,27 @@ builder.Services.AddSingleton<ISemanticTextMemory>(serviceProvider =>
     var embeddingModel = configuration["Ollama:EmbeddingModel"] ?? "nomic-embed-text:latest";
     
     var textEmbeddingService = new Microsoft.SemanticKernel.Connectors.Ollama.OllamaTextEmbeddingGenerationService(
-        embeddingModel, 
+        embeddingModel,
         new Uri(ollamaEndpoint));
     
+    // Normalize Qdrant endpoint for Semantic Kernel store as base URL without path
+    Uri qdrantUri;
+    try
+    {
+        qdrantUri = new Uri(qdrantEndpoint);
+    }
+    catch
+    {
+        qdrantUri = new Uri("http://" + qdrantEndpoint.Trim());
+    }
+
+    var normalizedQdrantBase = $"{qdrantUri.Scheme}://{qdrantUri.Host}:{(qdrantUri.IsDefaultPort ? (qdrantUri.Scheme == "https" ? 6334 : 6333) : qdrantUri.Port)}";
+
+    // Use generic embedding generator API to avoid invalid cast to ITextEmbeddingGenerationService
     return new MemoryBuilder()
-        .WithQdrantMemoryStore(qdrantEndpoint, 768) // Using 768 dimensions for nomic-embed-text
-        .WithTextEmbeddingGeneration(textEmbeddingService)
+    .WithMemoryStore()
+        .WithQdrantMemoryStore(normalizedQdrantBase, 768) // Using 768 dimensions for nomic-embed-text
+        .WithEmbeddingGenerator(textEmbeddingService)
         .Build();
 });
 #pragma warning restore SKEXP0001, SKEXP0020, SKEXP0070

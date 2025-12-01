@@ -22,7 +22,7 @@ public class DocumentProcessingService : IDocumentProcessingService
         _logger = logger;
     }
 
-    public async Task<string> ExtractTextFromPdfAsync(string filePath)
+    public Task<string> ExtractTextFromPdfAsync(string filePath)
     {
         try
         {
@@ -42,7 +42,7 @@ public class DocumentProcessingService : IDocumentProcessingService
             _logger.LogInformation("Successfully extracted {Length} characters from PDF: {FilePath}", 
                 text.Length, Path.GetFileName(filePath));
             
-            return text.Trim();
+            return Task.FromResult(text.Trim());
         }
         catch (Exception ex)
         {

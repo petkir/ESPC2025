@@ -2,8 +2,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.SemanticKernel;
-using Microsoft.SemanticKernel.Connectors.Qdrant;
 using Microsoft.SemanticKernel.Memory;
+using Microsoft.SemanticKernel.Embeddings;
+using Microsoft.SemanticKernel.Connectors.Qdrant;
 using Qdrant.Client;
 using escp25.local.llm.qdrant.init.Services;
 using escp25.local.llm.qdrant.init.Models;
@@ -118,11 +119,60 @@ class Program
             builder.AddConsole();
         });
 
+        // Shared settings and single Ollama client + vector size probe
+        var ollamaEndpointGlobal = configuration["Ollama:Endpoint"] ?? "http://localhost:11434";
+        var embeddingModelGlobal = configuration["Ollama:EmbeddingModel"] ?? "nomic-embed-text:latest";
+        var recreateOnInitGlobal = bool.TryParse(configuration["Qdrant:RecreateCollectionOnInit"], out var tmp) && tmp;
+        var ollamaClientGlobal = new escp25.local.llm.qdrant.init.Services.OllamaEmbeddingClient(new Uri(ollamaEndpointGlobal));
+        var vectorSizeGlobal = ollamaClientGlobal.GenerateAsync("dimension probe", embeddingModelGlobal).GetAwaiter().GetResult().Length;
+        if (vectorSizeGlobal <= 0)
+        {
+            // Fallback heuristics based on common embedding models
+            if (embeddingModelGlobal.Contains("nomic-embed-text", StringComparison.OrdinalIgnoreCase))
+            {
+                vectorSizeGlobal = 768;
+            }
+            else if (embeddingModelGlobal.Contains("minilm", StringComparison.OrdinalIgnoreCase))
+            {
+                vectorSizeGlobal = 384;
+            }
+            else if (embeddingModelGlobal.Contains("mxbai", StringComparison.OrdinalIgnoreCase) || embeddingModelGlobal.Contains("e5", StringComparison.OrdinalIgnoreCase))
+            {
+                vectorSizeGlobal = 1024;
+            }
+            else
+            {
+                vectorSizeGlobal = 768; // reasonable default
+            }
+        }
+
+        services.AddSingleton<escp25.local.llm.qdrant.init.Services.IOllamaEmbeddingClient>(sp => ollamaClientGlobal);
+
         // Configure Qdrant client
         services.AddSingleton<QdrantClient>(serviceProvider =>
         {
             var endpoint = configuration["Qdrant:Endpoint"] ?? "http://localhost:6333";
-            return new QdrantClient(endpoint);
+            // Parse endpoint (usually REST on 6333) but select gRPC port 6334
+            Uri uri;
+            try { uri = new Uri(endpoint); }
+            catch { uri = new Uri("http://" + endpoint.Trim()); }
+            var host = uri.Host;
+            var configuredGrpc = configuration["Qdrant:GrpcPort"];
+            int port;
+            if (!string.IsNullOrWhiteSpace(configuredGrpc) && int.TryParse(configuredGrpc, out var grpcPort))
+            {
+                port = grpcPort;
+            }
+            else if (uri.IsDefaultPort)
+            {
+                port = 6334; // default gRPC port
+            }
+            else
+            {
+                port = uri.Port == 6333 ? 6334 : uri.Port; // map REST 6333 -> gRPC 6334
+            }
+            var useHttps = false; // most local Qdrant gRPC setups are plaintext
+            return new QdrantClient(host: host, port: port, https: useHttps, apiKey: configuration["Qdrant:ApiKey"]);
         });
         
         // Configure Semantic Memory with Ollama embeddings and Qdrant
@@ -130,22 +180,32 @@ class Program
         services.AddSingleton<ISemanticTextMemory>(serviceProvider =>
         {
             var qdrantEndpoint = configuration["Qdrant:Endpoint"] ?? "http://localhost:6333";
-            var ollamaEndpoint = configuration["Ollama:Endpoint"] ?? "http://localhost:11434";
-            var embeddingModel = configuration["Ollama:EmbeddingModel"] ?? "nomic-embed-text:latest";
 
-            var textEmbeddingService = new Microsoft.SemanticKernel.Connectors.Ollama.OllamaTextEmbeddingGenerationService(
-                embeddingModel,
-                new Uri(ollamaEndpoint));
+            // Normalize Qdrant endpoint for MemoryStore base URL without path
+            Uri qUri;
+            try { qUri = new Uri(qdrantEndpoint); } catch { qUri = new Uri("http://" + qdrantEndpoint.Trim()); }
+            var baseQdrant = $"{qUri.Scheme}://{qUri.Host}:{(qUri.IsDefaultPort ? (qUri.Scheme == "https" ? 6334 : 6333) : qUri.Port)}";
+
+            var ollamaClient = serviceProvider.GetRequiredService<escp25.local.llm.qdrant.init.Services.IOllamaEmbeddingClient>();
+            var textEmbeddingService = new escp25.local.llm.qdrant.init.Services.SkOllamaEmbeddingService(
+                ollamaClient, embeddingModelGlobal);
 
             return new MemoryBuilder()
-                .WithQdrantMemoryStore(qdrantEndpoint, 768)
+                .WithQdrantMemoryStore(baseQdrant, vectorSizeGlobal)
                 .WithTextEmbeddingGeneration(textEmbeddingService)
                 .Build();
         });
-            #pragma warning restore SKEXP0001, SKEXP0020, SKEXP0070
+        #pragma warning restore SKEXP0001, SKEXP0020, SKEXP0070
 
         // Add services
-        services.AddScoped<IQdrantInitService, QdrantInitService>();
+        services.AddScoped<IQdrantInitService>(sp =>
+        {
+            var client = sp.GetRequiredService<QdrantClient>();
+            var logger = sp.GetRequiredService<ILogger<QdrantInitService>>();
+            var memory = sp.GetRequiredService<ISemanticTextMemory>();
+            var embedClient = sp.GetRequiredService<escp25.local.llm.qdrant.init.Services.IOllamaEmbeddingClient>();
+            return new QdrantInitService(client, logger, memory, embedClient, embeddingModelGlobal, vectorSizeGlobal, recreateOnInitGlobal);
+        });
         services.AddScoped<IDocumentProcessingService, DocumentProcessingService>();
     }
 }

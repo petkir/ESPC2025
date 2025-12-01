@@ -34,31 +34,13 @@
       ]
     },
     {
-      "id": "demo-min15nnd-n6g1",
-      "title": "Init Quadrant",
-      "steps": [
-        {
-          "action": "highlight",
-          "path": "ESPC_llm/local_02_vector/escp25.local.llm/escp25.local.llm.qdrant.init/Program.cs",
-          "position": "55:55",
-          "highlightWholeLine": true
-        },
-        {
-          "action": "highlight",
-          "path": "ESPC_llm/local_02_vector/escp25.local.llm/escp25.local.llm.qdrant.init/Program.cs",
-          "position": "62:62",
-          "highlightWholeLine": true
-        }
-      ]
-    },
-    {
       "id": "demo-min0xcaq-okft",
       "title": "get files",
       "steps": [
         {
           "action": "highlight",
           "path": "ESPC_llm/local_02_vector/escp25.local.llm/escp25.local.llm.qdrant.init/Program.cs",
-          "position": "71:71",
+          "position": "72:72",
           "highlightWholeLine": true
         }
       ]
@@ -70,7 +52,7 @@
         {
           "action": "highlight",
           "path": "ESPC_llm/local_02_vector/escp25.local.llm/escp25.local.llm.qdrant.init/Program.cs",
-          "position": "77:77",
+          "position": "78:78",
           "highlightWholeLine": true
         }
       ]
@@ -82,7 +64,43 @@
         {
           "action": "highlight",
           "path": "ESPC_llm/local_02_vector/escp25.local.llm/escp25.local.llm.qdrant.init/Program.cs",
-          "position": "81:81",
+          "position": "82:82",
+          "highlightWholeLine": true
+        }
+      ]
+    },
+    {
+      "id": "demo-min15nnd-n6g1",
+      "title": "Get Vector",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_02_vector/escp25.local.llm/escp25.local.llm.qdrant.init/Services/QdrantInitService.cs",
+          "position": "125:125",
+          "highlightWholeLine": true
+        }
+      ]
+    },
+    {
+      "id": "demo-min5ev6f-ebfl",
+      "title": "Show Embedding",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_02_vector/escp25.local.llm/escp25.local.llm.qdrant.init/ollama-embeddings.http",
+          "position": "17:23",
+          "highlightWholeLine": true
+        }
+      ]
+    },
+    {
+      "id": "demo-min5clzn-gzcm",
+      "title": "Store Vector",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_02_vector/escp25.local.llm/escp25.local.llm.qdrant.init/Services/QdrantInitService.cs",
+          "position": "139:151",
           "highlightWholeLine": true
         }
       ]

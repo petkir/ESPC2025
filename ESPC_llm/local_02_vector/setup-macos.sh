@@ -237,8 +237,8 @@ initialize_qdrant_documents() {
         fi
         
         # Run the document initialization
-        if [ -d "escp25.local.llm.qdrant.init" ]; then
-            cd escp25.local.llm.qdrant.init
+        if [ -d "escp25.local.llm/escp25.local.llm.qdrant.init" ]; then
+            cd escp25.local.llm/escp25.local.llm.qdrant.init
             if [ -f "escp25.local.llm.qdrant.init.csproj" ]; then
                 print_status "Restoring Qdrant init project dependencies..."
                 dotnet restore
@@ -272,7 +272,8 @@ start_application() {
         print_warning "Port 5001 is already in use. Backend might already be running."
     else
         print_status "Starting backend server..."
-        cd escp25.local.llm/escp25.local.llm.Server
+        pwd
+        cd escp25.local.llm.Server
         dotnet run &
         BACKEND_PID=$!
         cd ../..
