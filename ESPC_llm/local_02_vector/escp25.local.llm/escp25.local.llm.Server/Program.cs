@@ -28,16 +28,21 @@ builder.Services.AddAuthorization();
 
 // Configure Semantic Kernel with Ollama
 #pragma warning disable SKEXP0070 // Type is for evaluation purposes only
-builder.Services.AddKernel()
-    .AddOllamaChatCompletion(
-        modelId: builder.Configuration["Ollama:ModelId"] ?? "llama3.2",
-        endpoint: new Uri(builder.Configuration["Ollama:Endpoint"] ?? "http://localhost:11434"));
+var kernelBuilder = builder.Services.AddKernel();
+
+kernelBuilder.AddOllamaChatCompletion(
+    modelId: builder.Configuration["Ollama:ModelId"] ?? "llama3.2",
+    endpoint: new Uri(builder.Configuration["Ollama:Endpoint"] ?? "http://localhost:11434"));
+
+kernelBuilder.AddOllamaTextEmbeddingGeneration(
+    modelId: builder.Configuration["Ollama:EmbeddingModel"] ?? "all-minilm",
+    endpoint: new Uri(builder.Configuration["Ollama:Endpoint"] ?? "http://localhost:11434"));
 #pragma warning restore SKEXP0070
 
 // Configure Qdrant options
 builder.Services.Configure<QdrantOptions>(builder.Configuration.GetSection(QdrantOptions.SectionName));
 
-// Configure Qdrant client
+// Configure Qdrant client - use grpcPort explicitly to avoid connection issues
 builder.Services.AddSingleton<QdrantClient>(serviceProvider =>
 {
     var configuration = serviceProvider.GetRequiredService<IConfiguration>();
@@ -56,24 +61,25 @@ builder.Services.AddSingleton<QdrantClient>(serviceProvider =>
 
     var https = string.Equals(uri.Scheme, "https", StringComparison.OrdinalIgnoreCase);
     var host = uri.Host;
-    var port = uri.IsDefaultPort ? (https ? 6334 : 6333) : uri.Port;
-
-    return new QdrantClient(host: host, port: port, https: https, apiKey: configuration["Qdrant:ApiKey"]);
+    
+    // Qdrant runs gRPC on port 6334 by default
+    // The QdrantClient constructor uses 'port' for gRPC port
+    return new QdrantClient(
+        host: host, 
+        port: 6334,
+        https: https, 
+        apiKey: configuration["Qdrant:ApiKey"]);
 });
 
 // Configure Semantic Memory with Qdrant
 
-#pragma warning disable SKEXP0001, SKEXP0020, SKEXP0070 // Type is for evaluation purposes only
+#pragma warning disable SKEXP0001, SKEXP0010, SKEXP0020, SKEXP0070 // Type is for evaluation purposes only
 builder.Services.AddSingleton<ISemanticTextMemory>(serviceProvider =>
 {
     var configuration = serviceProvider.GetRequiredService<IConfiguration>();
     var qdrantEndpoint = configuration["Qdrant:Endpoint"] ?? "http://localhost:6333";
     var ollamaEndpoint = configuration["Ollama:Endpoint"] ?? "http://localhost:11434";
-    var embeddingModel = configuration["Ollama:EmbeddingModel"] ?? "nomic-embed-text:latest";
-    
-    var textEmbeddingService = new Microsoft.SemanticKernel.Connectors.Ollama.OllamaTextEmbeddingGenerationService(
-        embeddingModel,
-        new Uri(ollamaEndpoint));
+    var embeddingModel = configuration["Ollama:EmbeddingModel"] ?? "all-minilm";
     
     // Normalize Qdrant endpoint for Semantic Kernel store as base URL without path
     Uri qdrantUri;
@@ -88,14 +94,22 @@ builder.Services.AddSingleton<ISemanticTextMemory>(serviceProvider =>
 
     var normalizedQdrantBase = $"{qdrantUri.Scheme}://{qdrantUri.Host}:{(qdrantUri.IsDefaultPort ? (qdrantUri.Scheme == "https" ? 6334 : 6333) : qdrantUri.Port)}";
 
-    // Use generic embedding generator API to avoid invalid cast to ITextEmbeddingGenerationService
+    // Determine embedding vector size based on model
+    var vectorSize = embeddingModel.Contains("minilm", StringComparison.OrdinalIgnoreCase) ? 384 : 768;
+
+    // Build memory with Qdrant store and Ollama embeddings using Kernel's embedding service
+    var memoryStore = new QdrantMemoryStore(normalizedQdrantBase, vectorSize);
+    var kernel = serviceProvider.GetRequiredService<Kernel>();
+    
+    // Get the embedding generation service from the kernel which was configured earlier
+    var embeddingGenerator = kernel.GetRequiredService<Microsoft.SemanticKernel.Embeddings.ITextEmbeddingGenerationService>();
+    
     return new MemoryBuilder()
-    .WithMemoryStore()
-        .WithQdrantMemoryStore(normalizedQdrantBase, 768) // Using 768 dimensions for nomic-embed-text
-        .WithEmbeddingGenerator(textEmbeddingService)
+        .WithMemoryStore(memoryStore)
+        .WithTextEmbeddingGeneration(embeddingGenerator)
         .Build();
 });
-#pragma warning restore SKEXP0001, SKEXP0020, SKEXP0070
+#pragma warning restore SKEXP0001, SKEXP0010, SKEXP0020, SKEXP0070
 
 // Register services
 builder.Services.AddScoped<IChatService, ChatService>();

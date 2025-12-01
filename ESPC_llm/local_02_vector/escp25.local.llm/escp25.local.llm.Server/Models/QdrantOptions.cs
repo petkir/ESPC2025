@@ -6,5 +6,5 @@ public class QdrantOptions
     
     public string Endpoint { get; set; } = "http://localhost:6333";
     public string CollectionName { get; set; } = "knowledge_base";
-    public int VectorSize { get; set; } = 768; // Default for nomic-embed-text
+    public int VectorSize { get; set; } = 384; // Default for all-minilm (768 for nomic-embed-text)
 }

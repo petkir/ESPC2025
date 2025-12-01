@@ -104,6 +104,26 @@
           "highlightWholeLine": true
         }
       ]
+    },
+    {
+      "id": "demo-minaule6-fcwj",
+      "title": "show Quadrant Dashboard",
+      "steps": [
+        {
+          "action": "openWebsite",
+          "url": "http://localhost:6333/dashboard#/collections/knowledge_base"
+        }
+      ]
+    },
+    {
+      "id": "demo-minavrv3-8z1s",
+      "title": "Show Chat",
+      "steps": [
+        {
+          "action": "openWebsite",
+          "url": "https://localhost:54375/knowledge"
+        }
+      ]
     }
   ]
 }

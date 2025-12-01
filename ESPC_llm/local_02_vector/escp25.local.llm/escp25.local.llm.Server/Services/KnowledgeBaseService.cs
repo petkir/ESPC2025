@@ -60,7 +60,12 @@ public class KnowledgeBaseService : IKnowledgeBaseService
 
     public async Task<List<KnowledgeSearchResult>> SearchAsync(string query, int maxResults = 5)
     {
-        var results = await _qdrantService.SearchAsync(query, maxResults, 0.6); // Lower threshold for more results
+        var threshold =0.6;
+        if(query == "*")
+        {
+            threshold=0.0; // lower threshold for short queries
+        }
+        var results = await _qdrantService.SearchAsync(query, maxResults, threshold); // Lower threshold for more results
         
         return results.Select(r => new KnowledgeSearchResult
         {
