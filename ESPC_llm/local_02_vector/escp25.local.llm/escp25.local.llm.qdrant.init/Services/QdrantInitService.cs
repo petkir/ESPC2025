@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.Memory;
 using Microsoft.SemanticKernel.Connectors.Qdrant;
 using Qdrant.Client;
 using Qdrant.Client.Grpc;
@@ -20,14 +21,17 @@ public class QdrantInitService : IQdrantInitService
 {
     private readonly QdrantClient _qdrantClient;
     private readonly ILogger<QdrantInitService> _logger;
+    private readonly ISemanticTextMemory _memory;
     private readonly string _collectionName = "knowledge_base";
 
     public QdrantInitService(
         QdrantClient qdrantClient,
-        ILogger<QdrantInitService> logger)
+        ILogger<QdrantInitService> logger,
+        ISemanticTextMemory memory)
     {
         _qdrantClient = qdrantClient;
         _logger = logger;
+        _memory = memory;
     }
 
     public async Task<bool> IsQdrantHealthyAsync()
@@ -81,7 +85,7 @@ public class QdrantInitService : IQdrantInitService
             // Create collection with proper configuration
             await _qdrantClient.CreateCollectionAsync(_collectionName, new VectorParams
             {
-                Size = 384, // all-MiniLM-L6-v2 embedding size
+                Size = 768, // nomic-embed-text embedding size
                 Distance = Distance.Cosine
             });
 
@@ -94,21 +98,28 @@ public class QdrantInitService : IQdrantInitService
         }
     }
 
-    public Task<string> AddDocumentAsync(string content, string? fileName = null, string? category = null)
+    public async Task<string> AddDocumentAsync(string content, string? fileName = null, string? category = null)
     {
         try
         {
             var documentId = Guid.NewGuid().ToString();
-            
-            // For now, we'll just log that we would add the document
-            // The actual embedding and insertion would require the embedding service
-            _logger.LogInformation("Would add document: {DocumentId} (File: {FileName}, Category: {Category})", 
+
+            // Save as a single memory entry (simple path)
+            var description = !string.IsNullOrWhiteSpace(fileName)
+                ? fileName
+                : (!string.IsNullOrWhiteSpace(category) ? category : "Document");
+
+            var savedId = await _memory.SaveInformationAsync(
+                collection: _collectionName,
+                text: content,
+                id: documentId,
+                description: description);
+
+            _logger.LogInformation(
+                "Added document to Qdrant: {DocumentId} (File: {FileName}, Category: {Category})",
                 documentId, fileName ?? "Unknown", category ?? "General");
-            
-            _logger.LogInformation("Content preview: {ContentPreview}...", 
-                content.Length > 100 ? content.Substring(0, 100) + "..." : content);
-            
-            return Task.FromResult(documentId);
+
+            return savedId;
         }
         catch (Exception ex)
         {

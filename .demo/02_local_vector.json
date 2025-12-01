@@ -1,0 +1,91 @@
+{
+  "$schema": "https://demotime.show/demo-time.schema.json",
+  "title": "02 Local Vector",
+  "version": 3,
+  "demos": [
+    {
+      "id": "demo-min0h56d-w9g6",
+      "title": "start",
+      "steps": [
+        {
+          "action": "openTerminal",
+          "terminalId": "vectorsample"
+        },
+        {
+          "action": "executeTerminalCommand",
+          "command": "cd ESPC_llm/local_02_vector/",
+          "terminalId": "vectorsample"
+        },
+        {
+          "action": "executeTerminalCommand",
+          "command": "./setup-macos.sh",
+          "terminalId": "vectorsample"
+        }
+      ]
+    },
+    {
+      "id": "demo-min0o41e-n2tc",
+      "title": "Demo 2",
+      "steps": [
+        {
+          "action": "open",
+          "path": "ESPC_llm/local_02_vector/sample_files/page-11.pdf"
+        }
+      ]
+    },
+    {
+      "id": "demo-min15nnd-n6g1",
+      "title": "Init Quadrant",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_02_vector/escp25.local.llm/escp25.local.llm.qdrant.init/Program.cs",
+          "position": "55:55",
+          "highlightWholeLine": true
+        },
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_02_vector/escp25.local.llm/escp25.local.llm.qdrant.init/Program.cs",
+          "position": "62:62",
+          "highlightWholeLine": true
+        }
+      ]
+    },
+    {
+      "id": "demo-min0xcaq-okft",
+      "title": "get files",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_02_vector/escp25.local.llm/escp25.local.llm.qdrant.init/Program.cs",
+          "position": "71:71",
+          "highlightWholeLine": true
+        }
+      ]
+    },
+    {
+      "id": "demo-min0xz5l-q77k",
+      "title": "Extract Text",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_02_vector/escp25.local.llm/escp25.local.llm.qdrant.init/Program.cs",
+          "position": "77:77",
+          "highlightWholeLine": true
+        }
+      ]
+    },
+    {
+      "id": "demo-min0yq1w-3vu8",
+      "title": "Add to Index",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_02_vector/escp25.local.llm/escp25.local.llm.qdrant.init/Program.cs",
+          "position": "81:81",
+          "highlightWholeLine": true
+        }
+      ]
+    }
+  ]
+}

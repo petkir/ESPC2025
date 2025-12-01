@@ -34,40 +34,11 @@ builder.Services.AddKernel()
         endpoint: new Uri(builder.Configuration["Ollama:Endpoint"] ?? "http://localhost:11434"));
 #pragma warning restore SKEXP0070
 
-// Configure Qdrant options
-builder.Services.Configure<QdrantOptions>(builder.Configuration.GetSection(QdrantOptions.SectionName));
 
-// Configure Qdrant client
-builder.Services.AddSingleton<QdrantClient>(serviceProvider =>
-{
-    var configuration = serviceProvider.GetRequiredService<IConfiguration>();
-    var endpoint = configuration["Qdrant:Endpoint"] ?? "http://localhost:6333";
-    return new QdrantClient(endpoint);
-});
 
-// Configure Semantic Memory with Qdrant
-#pragma warning disable SKEXP0001, SKEXP0020, SKEXP0070 // Type is for evaluation purposes only
-builder.Services.AddSingleton<ISemanticTextMemory>(serviceProvider =>
-{
-    var configuration = serviceProvider.GetRequiredService<IConfiguration>();
-    var qdrantEndpoint = configuration["Qdrant:Endpoint"] ?? "http://localhost:6333";
-    var ollamaEndpoint = configuration["Ollama:Endpoint"] ?? "http://localhost:11434";
-    
-    var textEmbeddingService = new Microsoft.SemanticKernel.Connectors.Ollama.OllamaTextEmbeddingGenerationService(
-        "all-minilm:latest", 
-        new Uri(ollamaEndpoint));
-    
-    return new MemoryBuilder()
-        .WithQdrantMemoryStore(qdrantEndpoint, 384) // Using 384 dimensions for all-MiniLM-L6-v2
-        .WithTextEmbeddingGeneration(textEmbeddingService)
-        .Build();
-});
-#pragma warning restore SKEXP0001, SKEXP0020, SKEXP0070
 
 // Register services
 builder.Services.AddScoped<IChatService, ChatService>();
-builder.Services.AddScoped<IQdrantService, QdrantService>();
-builder.Services.AddScoped<IKnowledgeBaseService, KnowledgeBaseService>();
 builder.Services.AddScoped<ISemanticKernelToolService, SemanticKernelToolService>();
 builder.Services.AddHttpClient<SemanticKernelToolService>();
 

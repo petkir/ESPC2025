@@ -124,6 +124,25 @@ class Program
             var endpoint = configuration["Qdrant:Endpoint"] ?? "http://localhost:6333";
             return new QdrantClient(endpoint);
         });
+        
+        // Configure Semantic Memory with Ollama embeddings and Qdrant
+        #pragma warning disable SKEXP0001, SKEXP0020, SKEXP0070 // Type is for evaluation purposes only
+        services.AddSingleton<ISemanticTextMemory>(serviceProvider =>
+        {
+            var qdrantEndpoint = configuration["Qdrant:Endpoint"] ?? "http://localhost:6333";
+            var ollamaEndpoint = configuration["Ollama:Endpoint"] ?? "http://localhost:11434";
+            var embeddingModel = configuration["Ollama:EmbeddingModel"] ?? "nomic-embed-text:latest";
+
+            var textEmbeddingService = new Microsoft.SemanticKernel.Connectors.Ollama.OllamaTextEmbeddingGenerationService(
+                embeddingModel,
+                new Uri(ollamaEndpoint));
+
+            return new MemoryBuilder()
+                .WithQdrantMemoryStore(qdrantEndpoint, 768)
+                .WithTextEmbeddingGeneration(textEmbeddingService)
+                .Build();
+        });
+            #pragma warning restore SKEXP0001, SKEXP0020, SKEXP0070
 
         // Add services
         services.AddScoped<IQdrantInitService, QdrantInitService>();

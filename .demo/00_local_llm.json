@@ -53,10 +53,6 @@
           "highlightWholeLine": true
         },
         {
-          "action": "markdownPreview",
-          "path": ".demo/slides/OLLAMA.md"
-        },
-        {
           "action": "open",
           "path": "ESPC_llm/local_00_start/start-llm.sh"
         },
@@ -69,7 +65,7 @@
           "terminalId": "ollama",
           "command": "cd ESPC_llm/local_00_start ",
           "insertTypingMode": "character-by-character",
-          "insertTypingSpeed": 200
+          "insertTypingSpeed": 100
         },
         {
           "action": "executeTerminalCommand",
@@ -77,7 +73,7 @@
           "command": "ollama serve &",
           "autoExecute": true,
           "insertTypingMode": "character-by-character",
-          "insertTypingSpeed": 200
+          "insertTypingSpeed": 150
         }
       ],
       "icons": {
@@ -96,7 +92,7 @@
           "command": "ollama list",
           "autoExecute": true,
           "insertTypingMode": "character-by-character",
-          "insertTypingSpeed": 100
+          "insertTypingSpeed": 150
         }
       ]
     },
@@ -164,6 +160,19 @@
       ]
     },
     {
+      "id": "demo-mimyr4y2-jvwz",
+      "title": "show SSE deepseek",
+      "steps": [
+        {
+          "action": "replace",
+          "path": "ESPC_llm/local_00_start/llm-test.http",
+          "content": "  \"stream\": true",
+          "highlightWholeLine": false,
+          "position": "39"
+        }
+      ]
+    },
+    {
       "id": "demo-mif3nw0m-scld",
       "title": "Multi-turn conversation system",
       "steps": [
@@ -188,6 +197,30 @@
       ]
     },
     {
+      "id": "demo-mimz1nfm-2py0",
+      "title": "Multi-turn conversation assistent",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_00_start/llm-test.http",
+          "position": "76:79",
+          "highlightWholeLine": true
+        }
+      ]
+    },
+    {
+      "id": "demo-mimz2ll8-ychd",
+      "title": "Multi-turn conversation 2ndturn",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_00_start/llm-test.http",
+          "position": "80:84",
+          "highlightWholeLine": true
+        }
+      ]
+    },
+    {
       "id": "demo-mif2fgd3-3t35",
       "title": "close ollama",
       "steps": [
@@ -203,6 +236,13 @@
           "path": "ESPC_llm/local_00_start/llm-test.http",
           "content": "  \"stream\": false",
           "position": "24",
+          "highlightWholeLine": false
+        },
+        {
+          "action": "replace",
+          "path": "ESPC_llm/local_00_start/llm-test.http",
+          "content": "  \"stream\": false",
+          "position": "39",
           "highlightWholeLine": false
         }
       ]

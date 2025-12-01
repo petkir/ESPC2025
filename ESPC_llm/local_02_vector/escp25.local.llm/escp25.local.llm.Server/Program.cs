@@ -52,13 +52,14 @@ builder.Services.AddSingleton<ISemanticTextMemory>(serviceProvider =>
     var configuration = serviceProvider.GetRequiredService<IConfiguration>();
     var qdrantEndpoint = configuration["Qdrant:Endpoint"] ?? "http://localhost:6333";
     var ollamaEndpoint = configuration["Ollama:Endpoint"] ?? "http://localhost:11434";
+    var embeddingModel = configuration["Ollama:EmbeddingModel"] ?? "nomic-embed-text:latest";
     
     var textEmbeddingService = new Microsoft.SemanticKernel.Connectors.Ollama.OllamaTextEmbeddingGenerationService(
-        "all-minilm:latest", 
+        embeddingModel, 
         new Uri(ollamaEndpoint));
     
     return new MemoryBuilder()
-        .WithQdrantMemoryStore(qdrantEndpoint, 384) // Using 384 dimensions for all-MiniLM-L6-v2
+        .WithQdrantMemoryStore(qdrantEndpoint, 768) // Using 768 dimensions for nomic-embed-text
         .WithTextEmbeddingGeneration(textEmbeddingService)
         .Build();
 });

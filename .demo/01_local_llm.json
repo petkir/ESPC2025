@@ -1,0 +1,183 @@
+{
+  "$schema": "https://demotime.show/demo-time.schema.json",
+  "title": "01 Local Chat",
+  "version": 3,
+  "demos": [
+    {
+      "id": "demo-mimzfdpg-w048",
+      "title": "start LLM",
+      "steps": [
+        {
+          "action": "openTerminal",
+          "terminalId": "demo01"
+        },
+        {
+          "action": "executeTerminalCommand",
+          "terminalId": "olamaChat",
+          "command": "ESPC_llm/local_01_chat/setup-macos.sh"
+        }
+      ]
+    },
+    {
+      "id": "demo-mimzk5ul-cfhv",
+      "title": "SQL ChatHistory",
+      "steps": [
+        {
+          "action": "open",
+          "path": "ESPC_llm/local_01_chat/escp25.local.llm/escp25.local.llm.Server/Program.cs",
+          "disabled": true
+        },
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_01_chat/escp25.local.llm/escp25.local.llm.Server/Program.cs",
+          "position": "15:17",
+          "highlightWholeLine": true
+        }
+      ]
+    },
+    {
+      "id": "demo-mimzns9o-93lj",
+      "title": "Auth",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_01_chat/escp25.local.llm/escp25.local.llm.Server/Program.cs",
+          "position": "18:24",
+          "highlightWholeLine": true
+        }
+      ]
+    },
+    {
+      "id": "demo-mimzp3f6-qm1d",
+      "title": "Kernel",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_01_chat/escp25.local.llm/escp25.local.llm.Server/Program.cs",
+          "position": "27:30",
+          "highlightWholeLine": true
+        }
+      ]
+    },
+    {
+      "id": "demo-mimzqfmo-dlne",
+      "title": "Chat Service (Scoped)",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_01_chat/escp25.local.llm/escp25.local.llm.Server/Program.cs",
+          "position": "34:34",
+          "highlightWholeLine": true
+        }
+      ]
+    },
+    {
+      "id": "demo-mimzw5n9-1ybo",
+      "title": "Get old messages",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_01_chat/escp25.local.llm/escp25.local.llm.Server/Controllers/ChatController.cs",
+          "position": "272:272",
+          "highlightWholeLine": true
+        }
+      ]
+    },
+    {
+      "id": "demo-mimzxtor-6aob",
+      "title": "Get save new messages ",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_01_chat/escp25.local.llm/escp25.local.llm.Server/Controllers/ChatController.cs",
+          "position": "299:299",
+          "highlightWholeLine": true
+        }
+      ]
+    },
+    {
+      "id": "demo-mimzz53e-cjxa",
+      "title": "Send To LLM",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_01_chat/escp25.local.llm/escp25.local.llm.Server/Controllers/ChatController.cs",
+          "position": "308:308",
+          "highlightWholeLine": true
+        }
+      ]
+    },
+    {
+      "id": "demo-mimzztum-0xrl",
+      "title": "Send Response to Client",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_01_chat/escp25.local.llm/escp25.local.llm.Server/Controllers/ChatController.cs",
+          "position": "310:321",
+          "highlightWholeLine": true
+        }
+      ]
+    },
+    {
+      "id": "demo-min0128e-un4l",
+      "title": "Send End Message to Client",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_01_chat/escp25.local.llm/escp25.local.llm.Server/Controllers/ChatController.cs",
+          "position": "330:335",
+          "highlightWholeLine": true
+        }
+      ]
+    },
+    {
+      "id": "demo-min03vyj-48wp",
+      "title": "Frontend make json",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_01_chat/escp25.local.llm/escp25.local.llm.client/src/components/ChatInterface.tsx",
+          "position": "279:290",
+          "highlightWholeLine": true
+        }
+      ]
+    },
+    {
+      "id": "demo-min05n39-nkb0",
+      "title": "Send Request",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_01_chat/escp25.local.llm/escp25.local.llm.client/src/components/ChatInterface.tsx",
+          "position": "296:296",
+          "highlightWholeLine": true
+        }
+      ]
+    },
+    {
+      "id": "demo-min071y4-wem8",
+      "title": "process response",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_01_chat/escp25.local.llm/escp25.local.llm.client/src/components/ChatInterface.tsx",
+          "position": "218:221",
+          "highlightWholeLine": true
+        }
+      ]
+    },
+    {
+      "id": "demo-min089yc-tdh9",
+      "title": "endless loop",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_01_chat/escp25.local.llm/escp25.local.llm.client/src/components/ChatInterface.tsx",
+          "highlightWholeLine": true,
+          "position": "305:307"
+        }
+      ]
+    }
+  ]
+}

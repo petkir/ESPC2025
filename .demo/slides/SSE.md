@@ -6,17 +6,25 @@ layout: default
 ## Server‑Sent Events (SSE)
 
 ```
-Content-Type: text/event-stream
-data: <payload line 1>
-data: <payload line 2>
-event: <optional custom name>
-id: <optional sequence>
-retry: <ms>
+export interface AssistantMessage {
+    model: string;
+    created_at: string; // ISO 8601 timestamp
+    message: {
+        role: string;
+        content: string;
+    };
+    done: boolean;
+    // optional summary/metrics (present on final chunk)
+    done_reason?: string;
+    total_duration?: number;
+    load_duration?: number;
+    prompt_eval_count?: number;
+    prompt_eval_duration?: number;
+    eval_count?: number;
+    eval_duration?: number;
+}
+
+export type AssistantTranscript = AssistantMessage[];
 ```
 
-
-### .NET 10 Highlights
-- Native helpers for streaming responses
-- Better cancellation & flush semantics
-- Minimal API pattern fits SSE well
 
