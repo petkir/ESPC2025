@@ -7,7 +7,6 @@ import { ThemeProvider } from './contexts/ThemeContext';
 import { useAuth } from './hooks/useAuth';
 import { useTheme } from './hooks/useTheme';
 import ChatWrapper from './components/ChatWrapper';
-import Knowledge from './components/Knowledge';
 import Login from './components/Login';
 import Loading from './components/Loading';
 import AppHeader from './components/AppHeader';
@@ -63,8 +62,7 @@ function AppContent() {
                         <Route path="/chat/new" element={<ChatWrapper />} />
                         <Route path="/chat/:chatId" element={<ChatWrapper />} />
                         <Route path="/chat" element={<DescriptionPage />} />
-                        <Route path="/knowledge" element={<Knowledge />} />
-                    </Routes>
+                     </Routes>
                 </>
             )}
         </BrowserRouter>

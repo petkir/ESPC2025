@@ -14,7 +14,7 @@
         },
         {
           "action": "executeTerminalCommand",
-          "command": "cd local_03_m365API",
+          "command": "cd ESPC_llm/local_03_m365API",
           "terminalId": "Functions"
         }
       ]

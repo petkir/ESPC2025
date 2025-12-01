@@ -3,6 +3,9 @@ using Microsoft.Identity.Web;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Connectors.Ollama;
+using Microsoft.SemanticKernel.Connectors.Qdrant;
+using Microsoft.SemanticKernel.Memory;
+using Qdrant.Client;
 using espc25.local.llm.Server.Data;
 using espc25.local.llm.Server.Services;
 using espc25.local.llm.Server.Models;
@@ -25,13 +28,12 @@ builder.Services.AddAuthorization();
 
 // Configure Semantic Kernel with Ollama
 #pragma warning disable SKEXP0070 // Type is for evaluation purposes only
-builder.Services.AddKernel()
-    .AddOllamaChatCompletion(
-        modelId: builder.Configuration["Ollama:ModelId"] ?? "llama3.2",
-        endpoint: new Uri(builder.Configuration["Ollama:Endpoint"] ?? "http://localhost:11434"));
+var kernelBuilder = builder.Services.AddKernel();
+
+kernelBuilder.AddOllamaChatCompletion(
+    modelId: builder.Configuration["Ollama:ModelId"] ?? "llama3.2",
+    endpoint: new Uri(builder.Configuration["Ollama:Endpoint"] ?? "http://localhost:11434"));
 #pragma warning restore SKEXP0070
-
-
 
 
 // Register services
@@ -115,6 +117,18 @@ using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<ChatDbContext>();
     context.Database.EnsureCreated();
+    
+    // Initialize Qdrant knowledge base
+    try
+    {
+        var knowledgeBaseService = scope.ServiceProvider.GetRequiredService<IKnowledgeBaseService>();
+        await knowledgeBaseService.InitializeAsync();
+    }
+    catch (Exception ex)
+    {
+        var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+        logger.LogWarning(ex, "Failed to initialize Qdrant knowledge base. Make sure Qdrant is running.");
+    }
    
     // Initialize Semantic Kernel tools (MCP server - no auth required)
     try
