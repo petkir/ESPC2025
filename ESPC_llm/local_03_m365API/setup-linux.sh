@@ -302,80 +302,6 @@ restore_backend_deps() {
     fi
 }
 
-# Initialize Qdrant with sample documents
-initialize_qdrant_documents() {
-    print_status "Checking if Qdrant document initialization is needed..."
-    
-    # Check if user wants to initialize documents
-    echo ""
-    read -p "Do you want to upload sample documents to Qdrant vector database? This will add sample knowledge base content. (y/N): " upload_choice
-    
-    if [[ "$upload_choice" =~ ^[Yy]$ ]]; then
-        print_status "Starting Qdrant document initialization..."
-        
-        # Check if Qdrant is running
-        if ! curl -s http://localhost:6333/collections >/dev/null 2>&1; then
-            print_warning "Qdrant server is not running. Starting Qdrant with Docker..."
-            
-            # Check if Docker is available
-            if ! command_exists docker; then
-                print_error "Docker is required to run Qdrant. Please install Docker first."
-                print_status "You can install Docker from: https://docs.docker.com/engine/install/"
-                exit 1
-            fi
-            
-            # Start Qdrant container
-            print_status "Starting Qdrant container..."
-            docker run -d --name qdrant-espc25 -p 6333:6333 -p 6334:6334 qdrant/qdrant
-            
-            # Wait for Qdrant to be ready
-            print_status "Waiting for Qdrant to be ready..."
-            for i in {1..30}; do
-                if curl -s http://localhost:6333/collections >/dev/null 2>&1; then
-                    break
-                fi
-                sleep 2
-                echo -n "."
-            done
-            echo ""
-            
-            if ! curl -s http://localhost:6333/collections >/dev/null 2>&1; then
-                print_error "Failed to start Qdrant server"
-                exit 1
-            fi
-            
-            print_success "Qdrant server started successfully"
-        else
-            print_success "Qdrant server is already running"
-        fi
-        
-        # Run the document initialization
-        if [ -d "espc25.local.llm.qdrant.init" ]; then
-            cd espc25.local.llm.qdrant.init
-            if [ -f "espc25.local.llm.qdrant.init.csproj" ]; then
-                print_status "Restoring Qdrant init project dependencies..."
-                dotnet restore
-                
-                print_status "Running document initialization..."
-                echo "y" | dotnet run
-                
-                if [ $? -eq 0 ]; then
-                    print_success "Document initialization completed successfully"
-                else
-                    print_error "Document initialization failed"
-                fi
-            else
-                print_error "Qdrant init project file not found"
-            fi
-            cd ..
-        else
-            print_error "Qdrant init directory not found"
-        fi
-    else
-        print_status "Skipping document initialization"
-    fi
-}
-
 # Start the application
 start_application() {
     print_status "Starting the application..."
@@ -462,10 +388,6 @@ main() {
     print_status "Installing dependencies..."
     install_frontend_deps
     restore_backend_deps
-    
-    echo ""
-    print_status "Initializing knowledge base..."
-    initialize_qdrant_documents
     
     echo ""
     start_application

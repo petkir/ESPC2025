@@ -46,10 +46,9 @@ public class SemanticKernelToolService : ISemanticKernelToolService
             httpClientWithAuth.DefaultRequestHeaders.Authorization = 
                 new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
 
-            // Note: This is a placeholder implementation
-            // The actual implementation would depend on the specific OpenAPI plugin available
-            // For now, we'll create a simple wrapper that can be extended
-            var graphApiPlugin = new GraphApiPlugin(httpClientWithAuth, _logger);
+            // Create the Graph API plugin and add it to the kernel
+            var graphApiPluginInstance = new GraphApiPlugin(httpClientWithAuth, _logger);
+            var graphApiPlugin = KernelPluginFactory.CreateFromObject(graphApiPluginInstance, "GraphAPI");
             kernel.Plugins.Add(graphApiPlugin);
 
             _logger.LogInformation("OpenAPI tool configured successfully with OBO authentication");
@@ -73,7 +72,8 @@ public class SemanticKernelToolService : ISemanticKernelToolService
             var serverUrl = mcpConfig["url"] ?? "https://learn.microsoft.com/api/mcp";
 
             // Create the Microsoft Learn plugin with the MCP server endpoint
-            var mcpPlugin = new MicrosoftLearnPlugin(_httpClient, serverUrl, _logger);
+            var mcpPluginInstance = new MicrosoftLearnPlugin(_httpClient, serverUrl, _logger);
+            var mcpPlugin = KernelPluginFactory.CreateFromObject(mcpPluginInstance, "MicrosoftLearn");
             kernel.Plugins.Add(mcpPlugin);
 
             _logger.LogInformation("MCP server tool configured successfully for learn.microsoft.com at {ServerUrl}", serverUrl);
@@ -94,7 +94,8 @@ public class SemanticKernelToolService : ISemanticKernelToolService
         try
         {
             // Create the weather plugin - no authentication required for Open-Meteo
-            var weatherPlugin = new OpenMeteoWeatherPlugin(_httpClient, _logger);
+            var weatherPluginInstance = new OpenMeteoWeatherPlugin(_httpClient, _logger);
+            var weatherPlugin = KernelPluginFactory.CreateFromObject(weatherPluginInstance, "Weather");
             kernel.Plugins.Add(weatherPlugin);
 
             _logger.LogInformation("Open-Meteo Weather API tool configured successfully");

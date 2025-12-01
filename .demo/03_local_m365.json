@@ -3,5 +3,21 @@
   "title": "03 Talk with Data",
   "description": "",
   "version": 2,
-  "demos": []
+  "demos": [
+    {
+      "id": "demo-minb8gah-px5t",
+      "title": "Demo 1",
+      "steps": [
+        {
+          "action": "openTerminal",
+          "terminalId": "Functions"
+        },
+        {
+          "action": "executeTerminalCommand",
+          "command": "cd local_03_m365API",
+          "terminalId": "Functions"
+        }
+      ]
+    }
+  ]
 }

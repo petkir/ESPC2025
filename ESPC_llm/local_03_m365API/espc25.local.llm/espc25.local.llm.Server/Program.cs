@@ -3,9 +3,6 @@ using Microsoft.Identity.Web;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Connectors.Ollama;
-using Microsoft.SemanticKernel.Connectors.Qdrant;
-using Microsoft.SemanticKernel.Memory;
-using Qdrant.Client;
 using espc25.local.llm.Server.Data;
 using espc25.local.llm.Server.Services;
 using espc25.local.llm.Server.Models;
@@ -118,19 +115,7 @@ using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<ChatDbContext>();
     context.Database.EnsureCreated();
-    
-    // Initialize Qdrant knowledge base
-    try
-    {
-        var knowledgeBaseService = scope.ServiceProvider.GetRequiredService<IKnowledgeBaseService>();
-        await knowledgeBaseService.InitializeAsync();
-    }
-    catch (Exception ex)
-    {
-        var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-        logger.LogWarning(ex, "Failed to initialize Qdrant knowledge base. Make sure Qdrant is running.");
-    }
-
+   
     // Initialize Semantic Kernel tools (MCP server - no auth required)
     try
     {

@@ -1,13 +1,16 @@
-# Chat Interface with SSE, File Upload, and Entra ID Authentication
+# Chat Interface with Function Calling, Microsoft Graph API, and Entra ID Authentication
 
-This is a complete chat application built with .NET 9 and React 19 that includes:
+This is a complete chat application built with .NET 9 and React 19 that demonstrates **AI Function Calling** with multiple API integrations:
 
 - 🔐 **Entra ID Authentication** - Secure authentication using Microsoft identity platform
 - 💬 **Real-time Chat** - Server-Sent Events (SSE) for streaming responses
 - 📁 **File Upload** - Support for uploading files and images
 - 🗂️ **Chat History** - Persistent chat sessions with message history
 - 🤖 **AI Integration** - Local Ollama LLM using Semantic Kernel
-- 🗄️ **Vector Database** - Qdrant for semantic search and knowledge retrieval
+- 🔧 **Function Calling** - AI automatically calls appropriate tools/APIs
+- 📊 **Microsoft Graph API** - Access user profile, emails, calendar, OneDrive
+- 📚 **Microsoft Learn Plugin** - Query Microsoft documentation and learning resources
+- 🌤️ **Weather API** - Get weather forecasts for any location worldwide
 - 🎨 **OpenAI-like Interface** - Familiar chat interface design
 - 🌓 **Light/Dark Mode** - Toggle between light and dark themes with localStorage persistence
 
@@ -32,9 +35,11 @@ This is a complete chat application built with .NET 9 and React 19 that includes
 ### Backend (.NET 9)
 - **ASP.NET Core Web API** with minimal APIs
 - **Entity Framework Core** with SQLite for data persistence
-- **Semantic Kernel** for AI chat completion
+- **Semantic Kernel** for AI chat completion with function calling
 - **Ollama connector** for local LLM integration
-- **Qdrant** for vector database and semantic search
+- **Microsoft Graph API Plugin** - Authenticated API calls with OBO (On-Behalf-Of)
+- **Microsoft Learn Plugin** - Documentation search via MCP server
+- **Weather API Plugin** - Open-Meteo weather data integration
 - **Microsoft.Identity.Web** for Entra ID authentication
 - **Server-Sent Events** for real-time streaming
 
@@ -54,8 +59,9 @@ This is a complete chat application built with .NET 9 and React 19 that includes
 1. **Node.js** (v18 or higher)
 2. **.NET 9 SDK**
 3. **Ollama** running locally
-4. **Qdrant** vector database (Docker recommended)
-5. **[Azure AD App Registration](SETUP_AZURE.md)** (for Entra ID authentication)
+4. **[Azure AD App Registration](SETUP_AZURE.md)** (for Entra ID authentication)
+
+> **Note:** This demo focuses on **function calling** and does not require Qdrant or any vector database. The AI automatically calls appropriate functions/APIs based on user queries.
 
 ## Quick Setup (Recommended)
 
@@ -134,36 +140,7 @@ ollama pull llama3.2
 ollama serve
 ```
 
-### 2. Qdrant Vector Database Setup
-
-#### Using Docker (Recommended)
-
-```bash
-# Start Qdrant server with Docker
-docker run -p 6333:6333 -p 6334:6334 qdrant/qdrant
-```
-
-#### Alternative: Local Installation
-
-**Linux/macOS:**
-```bash
-# Download and run Qdrant binary
-wget https://github.com/qdrant/qdrant/releases/latest/download/qdrant-x86_64-unknown-linux-gnu.tar.gz
-tar -xzf qdrant-x86_64-unknown-linux-gnu.tar.gz
-./qdrant
-```
-
-**Windows:**
-```powershell
-# Download from GitHub releases or use Docker
-# https://github.com/qdrant/qdrant/releases
-```
-
-The Qdrant server will be available at:
-- REST API: `http://localhost:6333`
-- gRPC API: `http://localhost:6334`
-
-### 3. Azure AD App Registration
+### 2. Azure AD App Registration
 
 1. Go to [Azure Portal](https://portal.azure.com)
 2. Navigate to **Azure Active Directory** > **App registrations**
@@ -182,7 +159,7 @@ The Qdrant server will be available at:
    - Add `User.Read` permission
    - Grant admin consent
 
-### 4. Configuration
+### 3. Configuration
 
 #### Backend Configuration
 Update `appsettings.json` and `appsettings.Development.json`:
@@ -199,9 +176,22 @@ Update `appsettings.json` and `appsettings.Development.json`:
     "Endpoint": "http://localhost:11434",
     "ModelId": "llama3.2"
   },
-  "Qdrant": {
-    "Endpoint": "http://localhost:6333",
-    "CollectionName": "knowledge_base"
+  "Tools": {
+    "OpenApi": {
+      "ApiUrl": "https://graph.microsoft.com/v1.0",
+      "Description": "Microsoft Graph API with OBO authentication"
+    },
+    "MCP": {
+      "Servers": {
+        "microsoft.docs.mcp": {
+          "url": "https://learn.microsoft.com/api/mcp"
+        }
+      }
+    },
+    "Weather": {
+      "Provider": "OpenMeteo",
+      "BaseUrl": "https://api.open-meteo.com/v1"
+    }
   }
 }
 ```
@@ -221,9 +211,54 @@ VITE_API_BASE_URL=http://localhost:5227/api
 
 The `src/authConfig.ts` file is already configured to read these environment variables automatically.
 
-### 4. Running the Application
+## Function Calling & Tools
 
-#### Start Backend
+This demo showcases **Semantic Kernel's automatic function calling** where the AI agent intelligently selects and executes the appropriate tools based on user queries.
+
+### Available Tools
+
+#### 1. Microsoft Graph API Plugin (Requires Authentication)
+When signed in with Entra ID, the AI can access your Microsoft 365 data:
+- **GetMyProfile** - Retrieve your user profile
+- **GetMyGroups** - List groups you're a member of
+- **GetMyMail** - Get recent emails
+- **GetMyCalendarEvents** - View upcoming calendar events
+- **SearchFiles** - Search files in OneDrive
+- **GetMyContacts** - Access your contacts
+
+#### 2. Microsoft Learn Plugin (No Auth Required)
+Access Microsoft documentation and learning resources:
+- **SearchDocumentation** - Search Microsoft Learn docs
+- **GetLearningPath** - Get learning path information
+- **GetCodeSamples** - Find code examples
+- **GetAzureServiceInfo** - Get Azure service documentation
+
+#### 3. Weather API Plugin (No Auth Required)
+Get weather information for any location:
+- **GetCurrentWeather** - Current weather conditions
+- **GetWeatherForecast** - 7-day forecast
+- **GetHourlyWeather** - Hourly forecast data
+- **GetHistoricalWeather** - Historical weather data
+- **GetWeatherForCity** - Weather by city name (e.g., "London", "Tokyo")
+- **GetMarineWeather** - Marine and coastal weather
+
+### How It Works
+
+1. User sends a message (e.g., "What's the weather in Seattle?" or "Show me my recent emails")
+2. Semantic Kernel analyzes the query and automatically selects the appropriate tool(s)
+3. The AI calls the selected function(s) with proper parameters
+4. Results are incorporated into the AI's response
+5. The complete answer is streamed back to the user
+
+**Example queries:**
+- "What's the weather forecast for Paris this week?"
+- "Search Microsoft Learn for Azure Functions tutorials"
+- "Show me my upcoming calendar events"
+- "Find my recent emails about the project"
+
+## Running the Application
+
+### Start Backend
 ```bash
 cd espc25.local.llm/espc25.local.llm.Server
 dotnet run
