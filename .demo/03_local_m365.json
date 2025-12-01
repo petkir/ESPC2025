@@ -6,7 +6,7 @@
   "demos": [
     {
       "id": "demo-minb8gah-px5t",
-      "title": "Demo 1",
+      "title": "Demo 3",
       "steps": [
         {
           "action": "openTerminal",
@@ -15,6 +15,26 @@
         {
           "action": "executeTerminalCommand",
           "command": "cd ESPC_llm/local_03_m365API",
+          "terminalId": "Functions"
+        }
+      ]
+    },
+    {
+      "id": "demo-mif2fed3-3t85",
+      "title": "close ollama",
+      "steps": [
+        {
+          "action": "executeTerminalCommand",
+          "command": "pkill ollama  ",
+          "terminalId": "Functions"
+        },
+        {
+          "action": "executeTerminalCommand",
+          "command": "lsof -ti:5227 | xargs kill -9",
+          "terminalId": "Functions"
+        },
+        {
+          "action": "closeTerminal",
           "terminalId": "Functions"
         }
       ]
