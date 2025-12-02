@@ -80,25 +80,6 @@ public class HttpChat
         // Set the user token in the scoped context service
         _userContextService.SetUserToken(incomingToken);
 
-        // Acquire OBO token for downstream (optional - plugins handle their own OBO)
-        /*
-        string? oboToken;
-        try
-        {
-            oboToken = await _tokenService.GetOnBehalfOfTokenAsync(incomingToken);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Failed to acquire OBO token");
-            return new ObjectResult(new { error = "Failed to acquire OBO token", detail = ex.Message }) { StatusCode = 500 };
-        }
-
-        if (oboToken == null)
-        {
-            return new ObjectResult(new { error = "No OBO token returned" }) { StatusCode = 500 };
-        }
-        */
-
         // Read user message from request body
         string userMessage;
         using (var reader = new StreamReader(req.Body))

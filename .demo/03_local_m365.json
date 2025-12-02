@@ -210,6 +210,78 @@
       ]
     },
     {
+      "id": "demo-miorzmrh-2bx5",
+      "title": "chat endpoint",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_03_m365API/azure-function-sk/HttpChat.cs",
+          "highlightWholeLine": true,
+          "position": "36:37"
+        }
+      ]
+    },
+    {
+      "id": "demo-mios0bnr-4nyo",
+      "title": "set usercontext",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_03_m365API/azure-function-sk/HttpChat.cs",
+          "highlightWholeLine": true,
+          "position": "81:81"
+        }
+      ]
+    },
+    {
+      "id": "demo-mios1vhg-qjr4",
+      "title": "compose Msg",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_03_m365API/azure-function-sk/HttpChat.cs",
+          "highlightWholeLine": true,
+          "position": "123:125"
+        }
+      ]
+    },
+    {
+      "id": "demo-mios2xyx-acoi",
+      "title": "functioncalling allowed",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_03_m365API/azure-function-sk/HttpChat.cs",
+          "highlightWholeLine": true,
+          "position": "132:135"
+        }
+      ]
+    },
+    {
+      "id": "demo-mios3y5j-mf4u",
+      "title": "send request to llm",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_03_m365API/azure-function-sk/HttpChat.cs",
+          "highlightWholeLine": true,
+          "position": "138:142"
+        }
+      ]
+    },
+    {
+      "id": "demo-mios69gw-i6if",
+      "title": "return data",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_03_m365API/azure-function-sk/HttpChat.cs",
+          "highlightWholeLine": true,
+          "position": "153:159"
+        }
+      ]
+    },
+    {
       "id": "demo-miop7mj4-6jm4",
       "title": "start Browser",
       "steps": [
