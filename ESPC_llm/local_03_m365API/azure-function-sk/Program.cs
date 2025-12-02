@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Company.Function.Services;
 using Company.Function.Plugins;
 using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.Connectors.Ollama;
 
 var builder = FunctionsApplication.CreateBuilder(args);
 
@@ -55,8 +56,11 @@ builder.Services.AddTransient<Kernel>(sp =>
         throw new InvalidOperationException("Azure OpenAI configuration missing. Set AzureOpenAI:Endpoint, AzureOpenAI:DeploymentName, and AzureOpenAI:ApiKey in settings.");
     }
     var kernelBuilder = Kernel.CreateBuilder();
-    kernelBuilder.AddAzureOpenAIChatCompletion(deploymentName, endpoint, apiKey);
-
+    //kernelBuilder.AddAzureOpenAIChatCompletion(deploymentName, endpoint, apiKey);
+   #pragma warning disable SKEXP0070 // Type is for evaluation purposes only
+    kernelBuilder.AddOllamaChatCompletion("llama3.2", new Uri("http://localhost:11434"));
+    #pragma warning restore SKEXP0070
+    
     // Register plugins
     kernelBuilder.Plugins.AddFromType<DateTimePlugin>();
     var graphLogger = loggerFactory.CreateLogger<GraphPlugin>();

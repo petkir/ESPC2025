@@ -59,6 +59,8 @@ public class GraphPlugin
             var res = await client.GetAsync("https://graph.microsoft.com/v1.0/me");
             res.EnsureSuccessStatusCode();
             var json = await res.Content.ReadAsStringAsync();
+            //remove sensitive info from response like phone numbers
+            json = RemoveSensitiveInfo(json);
             _logger.LogInformation("GraphPlugin.GetUserInfo: Successfully retrieved user info");
             return json;
         }
@@ -107,5 +109,28 @@ public class GraphPlugin
             _logger.LogError(ex, "GraphPlugin.GetCalendarInfo: Error retrieving calendar info");
             return $"Error retrieving calendar info: {ex.Message}";
         }
+
+    }
+    private string RemoveSensitiveInfo(string json)
+    {
+        _logger.LogInformation("GraphPlugin.RemoveSensitiveInfo: Removing sensitive info from user profile JSON");
+       
+        var doc = JsonDocument.Parse(json);
+            var root = doc.RootElement.Clone();
+            using var stream = new System.IO.MemoryStream();
+            using (var writer = new Utf8JsonWriter(stream))
+            {
+                writer.WriteStartObject();
+                foreach (var property in root.EnumerateObject())
+                {
+                    if (property.Name != "mobilePhone" && property.Name != "businessPhones")
+                    {
+                        property.WriteTo(writer);
+                    }
+                }
+                writer.WriteEndObject();
+            }
+        var trimmedJson = System.Text.Encoding.UTF8.GetString(stream.ToArray());
+        return trimmedJson;
     }
 }

@@ -21,8 +21,9 @@
     <!-- Microsoft Identity Web for JWT token validation -->
     <PackageReference Include="Microsoft.Identity.Web" Version="3.3.0" />
     <!-- Semantic Kernel for LLM orchestration and plugins -->
-    <PackageReference Include="Microsoft.SemanticKernel" Version="1.31.0" />
-    <PackageReference Include="Microsoft.SemanticKernel.Connectors.AzureOpenAI" Version="1.31.0" />
+    <PackageReference Include="Microsoft.SemanticKernel" Version="1.67.1" />
+    <PackageReference Include="Microsoft.SemanticKernel.Connectors.AzureOpenAI" Version="1.67.1" />
+    <PackageReference Include="Microsoft.SemanticKernel.Connectors.Ollama" Version="1.67.1-alpha" />
   </ItemGroup>
 
 </Project>

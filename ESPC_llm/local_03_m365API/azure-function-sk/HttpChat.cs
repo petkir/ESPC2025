@@ -150,7 +150,7 @@ public class HttpChat
             // Enable auto function calling
             var executionSettings = new OpenAIPromptExecutionSettings
             {
-                ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions
+                 FunctionChoiceBehavior = FunctionChoiceBehavior.Auto()
             };
 
             // Stream the response
@@ -167,7 +167,7 @@ public class HttpChat
                     break;
                 }
 
-                if (!string.IsNullOrEmpty(update.Content))
+                if (!string.IsNullOrEmpty(update.Content) && !update.Content.Contains("\"parameters\""))
                 {
                     var eventData = JsonSerializer.Serialize(new { 
                         type = "content",

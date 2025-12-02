@@ -10,22 +10,212 @@
       "steps": [
         {
           "action": "openTerminal",
-          "terminalId": "Functions"
+          "terminalId": "ollama"
+        },
+        {
+          "action": "executeTerminalCommand",
+          "terminalId": "ollama",
+          "command": "ollama serve &"
+        },
+        {
+          "action": "openTerminal",
+          "terminalId": "spfx"
         },
         {
           "action": "executeTerminalCommand",
           "command": "cd ESPC_llm/local_03_m365API",
-          "terminalId": "Functions"
+          "terminalId": "spfx"
         },
         {
           "action": "executeTerminalCommand",
-          "command": "cd ESPC_llm/local_03_m365API",
-          "terminalId": "Functions"
+          "command": "gulp serve --nobrowser",
+          "terminalId": "spfx"
+        },
+        {
+          "action": "openTerminal",
+          "terminalId": "azfunc"
         },
         {
           "action": "executeTerminalCommand",
-          "command": "./setup-macos.sh",
-          "terminalId": "Functions"
+          "terminalId": "azfunc",
+          "command": "cd  ESPC_llm/local_03_m365API/azure-function-sk"
+        },
+        {
+          "action": "executeTerminalCommand",
+          "command": "dotnet run",
+          "terminalId": "azfunc"
+        }
+      ]
+    },
+    {
+      "id": "demo-mioq1exs-e9l9",
+      "title": "Show Services",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_03_m365API/azure-function-sk/Program.cs",
+          "position": "35:37",
+          "highlightWholeLine": true
+        }
+      ]
+    },
+    {
+      "id": "demo-mioq7n7m-0qa8",
+      "title": "Show Chat Completion",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_03_m365API/azure-function-sk/Program.cs",
+          "highlightWholeLine": true,
+          "position": "61:61"
+        }
+      ]
+    },
+    {
+      "id": "demo-mioq3hlw-vfkc",
+      "title": "Show Plugin Date",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_03_m365API/azure-function-sk/Program.cs",
+          "position": "65:65",
+          "highlightWholeLine": true
+        }
+      ]
+    },
+    {
+      "id": "demo-mioq4zq6-h9ti",
+      "title": "Show Plugin Graph",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_03_m365API/azure-function-sk/Program.cs",
+          "position": "67:67",
+          "highlightWholeLine": true
+        }
+      ]
+    },
+    {
+      "id": "demo-miop9zuk-6zuh",
+      "title": "show Plugin Date",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_03_m365API/azure-function-sk/Plugins/DateTimePlugin.cs",
+          "position": "9:10",
+          "highlightWholeLine": true
+        }
+      ]
+    },
+    {
+      "id": "demo-mioqvhgs-knuy",
+      "title": "show Plugin Date 2",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_03_m365API/azure-function-sk/Plugins/DateTimePlugin.cs",
+          "position": "13:13",
+          "highlightWholeLine": true
+        }
+      ]
+    },
+    {
+      "id": "demo-miopctkr-14hb",
+      "title": "show Plugin Graph",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_03_m365API/azure-function-sk/Plugins/GraphPlugin.cs",
+          "position": "34:35",
+          "highlightWholeLine": true
+        }
+      ]
+    },
+    {
+      "id": "demo-miopehnm-wb0q",
+      "title": "show Plugin Graph OBO",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_03_m365API/azure-function-sk/Plugins/GraphPlugin.cs",
+          "position": "46:46",
+          "highlightWholeLine": true
+        }
+      ]
+    },
+    {
+      "id": "demo-mioqxp0w-huy0",
+      "title": "show Plugin Graph Auth Header",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_03_m365API/azure-function-sk/Plugins/GraphPlugin.cs",
+          "position": "54:54",
+          "highlightWholeLine": true
+        }
+      ]
+    },
+    {
+      "id": "demo-miopg1c8-ytuc",
+      "title": "show Plugin Graph Request",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_03_m365API/azure-function-sk/Plugins/GraphPlugin.cs",
+          "highlightWholeLine": true,
+          "position": "54:54"
+        },
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_03_m365API/azure-function-sk/Plugins/GraphPlugin.cs",
+          "highlightWholeLine": true,
+          "position": "59:59"
+        }
+      ]
+    },
+    {
+      "id": "demo-miopil7f-gqm7",
+      "title": "show Token Change",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_03_m365API/azure-function-sk/Services/MsalTokenService.cs",
+          "highlightWholeLine": true,
+          "position": "40:40"
+        }
+      ]
+    },
+    {
+      "id": "demo-mioqzlx5-7slz",
+      "title": "AcquireTokenOnBehalfOf",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_03_m365API/azure-function-sk/Services/MsalTokenService.cs",
+          "highlightWholeLine": true,
+          "position": "54:54"
+        }
+      ]
+    },
+    {
+      "id": "demo-mior05z5-rn56",
+      "title": "ConfidentialClientApplicationBuilder",
+      "steps": [
+        {
+          "action": "highlight",
+          "path": "ESPC_llm/local_03_m365API/azure-function-sk/Services/MsalTokenService.cs",
+          "highlightWholeLine": true,
+          "position": "32:35"
+        }
+      ]
+    },
+    {
+      "id": "demo-miop7mj4-6jm4",
+      "title": "start Browser",
+      "steps": [
+        {
+          "action": "openWebsite",
+          "url": "https://acpcubidodev.sharepoint.com/sites/pnpTreeOrg/_layouts/15/workbench.aspx"
         }
       ]
     },
@@ -36,16 +226,29 @@
         {
           "action": "executeTerminalCommand",
           "command": "pkill ollama  ",
-          "terminalId": "Functions"
+          "terminalId": "close"
         },
         {
           "action": "executeTerminalCommand",
           "command": "lsof -ti:5227 | xargs kill -9",
-          "terminalId": "Functions"
+          "terminalId": "close"
+        },
+        {
+          "action": "executeTerminalCommand",
+          "command": "lsof -ti:7071 | xargs kill -9",
+          "terminalId": "close"
         },
         {
           "action": "closeTerminal",
-          "terminalId": "Functions"
+          "terminalId": "azfunc"
+        },
+        {
+          "action": "closeTerminal",
+          "terminalId": "spfx"
+        },
+        {
+          "action": "closeTerminal",
+          "terminalId": "ollama"
         }
       ]
     }
