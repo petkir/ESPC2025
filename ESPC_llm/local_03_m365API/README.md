@@ -1,406 +1,144 @@
-# Chat Interface with Function Calling, Microsoft Graph API, and Entra ID Authentication
+# Chat With Semantic Kernel and Plugins 
 
-This is a complete chat application built with .NET 9 and React 19 that demonstrates **AI Function Calling** with multiple API integrations:
+## Summary
 
-- 🔐 **Entra ID Authentication** - Secure authentication using Microsoft identity platform
-- 💬 **Real-time Chat** - Server-Sent Events (SSE) for streaming responses
-- 📁 **File Upload** - Support for uploading files and images
-- 🗂️ **Chat History** - Persistent chat sessions with message history
-- 🤖 **AI Integration** - Local Ollama LLM using Semantic Kernel
-- 🔧 **Function Calling** - AI automatically calls appropriate tools/APIs
-- 📊 **Microsoft Graph API** - Access user profile, emails, calendar, OneDrive
-- 📚 **Microsoft Learn Plugin** - Query Microsoft documentation and learning resources
-- 🌤️ **Weather API** - Get weather forecasts for any location worldwide
-- 🎨 **OpenAI-like Interface** - Familiar chat interface design
-- 🌓 **Light/Dark Mode** - Toggle between light and dark themes with localStorage persistence
+This solution demonstrates an intelligent chat interface built with SharePoint Framework (SPFx) that integrates with Azure Functions and Microsoft Semantic Kernel. The chat webpart provides a modern conversational UI with real-time communication using Server-Sent Events (SSE), allowing users to interact with AI-powered capabilities directly within SharePoint Online.
 
-## New Features
+The backend leverages Azure Functions with .NET 10 and Semantic Kernel for orchestrating AI interactions, including function calling capabilities for context-aware operations such as retrieving dates, user information, and calendar data from Microsoft Graph. The entire solution is protected by Entra ID (Azure AD) authentication.
 
-### UI/UX Improvements
-- **Mantine Components** - Modern, accessible UI components from Mantine (htowoo from n8d)
-- **SASS Styling** - All styling converted from CSS to SASS for better maintainability
-- **Theme Toggle** - Light/Dark mode toggle positioned in the top-right corner
-- **Theme Persistence** - User's theme preference is saved in localStorage
-- **Browser Detection** - Automatically detects browser's color scheme preference if no saved preference exists
-- **Responsive Design** - Fully responsive layout that works on all screen sizes
+Key features include:
+- Real-time chat streaming with SSE
+- Semantic Kernel integration with extensible function calling
+- Semantic Kernel Plugins with Graph Calls
+- Secure authentication via Entra ID
 
-### Component Architecture
-- **AppShell Layout** - Uses Mantine's AppShell component for consistent layout
-- **Modern Icons** - Tabler Icons for consistent and modern iconography
-- **Accessibility** - Full ARIA support and keyboard navigation
-- **Type Safety** - Complete TypeScript implementation with proper typing
 
-## Architecture
 
-### Backend (.NET 9)
-- **ASP.NET Core Web API** with minimal APIs
-- **Entity Framework Core** with SQLite for data persistence
-- **Semantic Kernel** for AI chat completion with function calling
-- **Ollama connector** for local LLM integration
-- **Microsoft Graph API Plugin** - Authenticated API calls with OBO (On-Behalf-Of)
-- **Microsoft Learn Plugin** - Documentation search via MCP server
-- **Weather API Plugin** - Open-Meteo weather data integration
-- **Microsoft.Identity.Web** for Entra ID authentication
-- **Server-Sent Events** for real-time streaming
+![Demo](./assets/demo.gif)
 
-### Frontend (React 19 + TypeScript)
-- **React 19** with TypeScript
-- **Vite** for fast development and building
-- **Mantine** (htowoo from n8d) for modern UI components
-- **SASS** for styling instead of CSS
-- **Light/Dark mode** toggle with localStorage persistence
-- **MSAL React** for Entra ID authentication
-- **Axios** for HTTP requests
-- **Tabler Icons** for consistent iconography
-- **Custom SSE implementation** for real-time chat
+![Webpart](./assets/ChatUI.png)
+![AZ Function Output with the API Calls to Graph API](./assets/functionLog.png)
+![SSE Response of a Chat Message](./assets/SSERequest.png)
+![Scoped UserContext for Sementic Kernel in Azure Function](./assets/userContextForPlugins.png)
 
-## Prerequisites
+[Video](./assets/ReactChatSk.mp4)
 
-1. **Node.js** (v18 or higher)
-2. **.NET 9 SDK**
-3. **Ollama** running locally
-4. **[Azure AD App Registration](SETUP_AZURE.md)** (for Entra ID authentication)
 
-> **Note:** This demo focuses on **function calling** and does not require Qdrant or any vector database. The AI automatically calls appropriate functions/APIs based on user queries.
 
-## Quick Setup (Recommended)
+## Compatibility
 
-We provide automated setup scripts that check for prerequisites, install missing components, and start all necessary services:
+| :warning: Important          |
+|:---------------------------|
+| Every SPFx version is optimally compatible with specific versions of Node.js. In order to be able to build this sample, you need to ensure that the version of Node on your workstation matches one of the versions listed in this section. This sample will not work on a different version of Node.|
+|Refer to <https://aka.ms/spfx-matrix> for more information on SPFx compatibility.   |
 
-### 🍎 macOS
+This sample is optimally compatible with the following environment configuration:
 
-```bash
-./setup-macos.sh
-```
+![SPFx 1.21.1](https://img.shields.io/badge/SPFx-1.21.1-green.svg)
+![Node.js v22](https://img.shields.io/badge/Node.js-v22-green.svg)
+![Compatible with SharePoint Online](https://img.shields.io/badge/SharePoint%20Online-Compatible-green.svg)
+![Does not work with SharePoint 2019](https://img.shields.io/badge/SharePoint%20Server%202019-Incompatible-red.svg "SharePoint Server 2019 requires SPFx 1.4.1 or lower")
+![Does not work with SharePoint 2016 (Feature Pack 2)](https://img.shields.io/badge/SharePoint%20Server%202016%20(Feature%20Pack%202)-Incompatible-red.svg "SharePoint Server 2016 Feature Pack 2 requires SPFx 1.1")
+![Local Workbench Unsupported](https://img.shields.io/badge/Local%20Workbench-Unsupported-red.svg "Local workbench is no longer available as of SPFx 1.13 and above")
+![Hosted Workbench Compatible](https://img.shields.io/badge/Hosted%20Workbench-Compatible-green.svg)
+![Compatible with Remote Containers](https://img.shields.io/badge/Remote%20Containers-Compatible-green.svg)
 
-### 🐧 Linux
+## Applies to
 
-```bash
-./setup-linux.sh
-```
+- [SharePoint Framework](https://aka.ms/spfx)
 
-### 🪟 Windows
+## Contributors
 
-```batch
-setup-windows.bat
-```
+- [Peter Paul Kirschner](https://github.com/petkir)
 
-These scripts will:
+## Version history
 
-- ✅ Check and install Node.js (v18+)
-- ✅ Check and install .NET 9 SDK
-- ✅ Check and install Ollama
-- ✅ Download the llama3.2 model
-- ✅ Install frontend dependencies
-- ✅ Restore backend dependencies
-- ✅ Start all services
+|Version|Date|Comments|
+|-------|----|--------|
+|1.0|Okt, 2025|Initial release|
 
-## Manual Setup Instructions
+## Minimal Path to Awesome
 
-If you prefer manual setup or the automated scripts don't work for your system:
+- Clone this repository
+- Ensure that you are at the solution folder
+- Create an App Registration
+- Setup Variables
+  - `cp azure-function-sk/local.template.json azure-function-sk/local.settings.json`
+  - fillout `azure-function-sk/local.settings.json`
+  - fillout `config/package-solution.json`
+- in the command-line run:
+  - `npm install`
+  - `gulp bundle && gulp package-solution`
+  - `gulp serve --nobrowser`
+- in other command-line run:
+  - `cd azure-function-sk`
+  - `dotnet run`
+- Upload Sharepoint Solution to SharePoint
+  - Approve API Permissions
+  
+>  This sample can also be opened with [VS Code Remote Development](https://code.visualstudio.com/docs/remote/remote-overview). Visit https://aka.ms/spfx-devcontainer for further instructions.
 
-### 1. Ollama Setup
+### App Registration
 
-#### Linux
+- Create an App Registration 
+![Create an App Registration](./assets/appregistration/entra1.png)
+- Single Tenant with the Name React-Chat-Sk
+![Create an App Registration](./assets/appregistration/entra2.png)
 
-```bash
-# Install Ollama (if not already installed)
-curl -fsSL https://ollama.com/install.sh | sh
+- Copy ClientID and TenantID to:
+  - `azure-function-sk/local.settings.json` (`AzureAd__TenantId`, `AzureAd__ClientId`)
+  - `config/package-solution.json` (`webApiPermissionRequests.appId`)
+![Copy ClientID and TenantID](./assets/appregistration/entra3.png)
 
-# Pull a model (e.g., llama3.2)
-ollama pull llama3.2
+- API Permissions
+  - All permissions are in delegated context
+![Copy ClientID and TenantID](./assets/appregistration/entra4.png)
 
-# Start Ollama server
-ollama serve
-```
+- Expose API
+  - Scope: `user_impersonation`
+  - Update `azure-function-sk/local.settings.json` (`AzureAd__Audience`, `Downstream__Scopes`)
+  - Update `config/package-solution.json` (`webApiPermissionRequests.scope`)
+![Copy ClientID and TenantID](./assets/appregistration/entra5.png)
 
-#### macOS
+- Generate Client Secret
+  - Update `azure-function-sk/local.settings.json` (`AzureAd__ClientSecret`)
+![Copy ClientID and TenantID](./assets/appregistration/entra6.png)
 
-```bash
-# Install via Homebrew
-brew install ollama
+### API Permissions
 
-# Pull a model (e.g., llama3.2)
-ollama pull llama3.2
+- Upload the app to the Company App Catalog and enable it
+![Enable App in SharePoint App Catalog](./assets/appinstall/EnableApp.png)
 
-# Start Ollama server
-ollama serve
-```
+- Go to API Permissions
+![Go To API Permissions](./assets/appinstall/GoToAPI.png)
 
-#### Windows
+- Approve pending API requests
+![Go To API Permissions](./assets/appinstall/ApiAccess.png)
 
-```powershell
-# Install via WinGet or download from https://ollama.com
-winget install Ollama.Ollama
-
-# Pull a model (e.g., llama3.2)
-ollama pull llama3.2
-
-# Start Ollama server
-ollama serve
-```
-
-### 2. Azure AD App Registration
-
-1. Go to [Azure Portal](https://portal.azure.com)
-2. Navigate to **Azure Active Directory** > **App registrations**
-3. Click **New registration**
-4. Fill in the details:
-   - **Name**: Chat App
-   - **Supported account types**: Accounts in this organizational directory only
-   - **Redirect URI**: `https://localhost:54375` (SPA)
-5. After creation, note down:
-   - **Application (client) ID**
-   - **Directory (tenant) ID**
-6. Configure **Authentication**:
-   - Add `http://localhost:5173` as another redirect URI (for development)
-   - Enable **Access tokens** and **ID tokens**
-7. Configure **API permissions**:
-   - Add `User.Read` permission
-   - Grant admin consent
-
-### 3. Configuration
-
-#### Backend Configuration
-Update `appsettings.json` and `appsettings.Development.json`:
-
-```json
-{
-  "AzureAd": {
-    "Instance": "https://login.microsoftonline.com/",
-    "Domain": "your-domain.onmicrosoft.com",
-    "TenantId": "your-tenant-id",
-    "ClientId": "your-client-id"
-  },
-  "Ollama": {
-    "Endpoint": "http://localhost:11434",
-    "ModelId": "llama3.2"
-  },
-  "Tools": {
-    "OpenApi": {
-      "ApiUrl": "https://graph.microsoft.com/v1.0",
-      "Description": "Microsoft Graph API with OBO authentication"
-    },
-    "MCP": {
-      "Servers": {
-        "microsoft.docs.mcp": {
-          "url": "https://learn.microsoft.com/api/mcp"
-        }
-      }
-    },
-    "Weather": {
-      "Provider": "OpenMeteo",
-      "BaseUrl": "https://api.open-meteo.com/v1"
-    }
-  }
-}
-```
-
-#### Frontend Configuration
-Create a `.env` file in the `espc25.local.llm.client` directory (copy from `.env.example`):
-
-```bash
-# Azure AD Configuration
-VITE_AZURE_CLIENT_ID=your-client-id-here
-VITE_AZURE_TENANT_ID=your-tenant-id-here
-VITE_AZURE_DOMAIN=your-domain.onmicrosoft.com
-
-# API Configuration
-VITE_API_BASE_URL=http://localhost:5227/api
-```
-
-The `src/authConfig.ts` file is already configured to read these environment variables automatically.
-
-## Function Calling & Tools
-
-This demo showcases **Semantic Kernel's automatic function calling** where the AI agent intelligently selects and executes the appropriate tools based on user queries.
-
-### Available Tools
-
-#### 1. Microsoft Graph API Plugin (Requires Authentication)
-When signed in with Entra ID, the AI can access your Microsoft 365 data:
-- **GetMyProfile** - Retrieve your user profile
-- **GetMyGroups** - List groups you're a member of
-- **GetMyMail** - Get recent emails
-- **GetMyCalendarEvents** - View upcoming calendar events
-- **SearchFiles** - Search files in OneDrive
-- **GetMyContacts** - Access your contacts
-
-#### 2. Microsoft Learn Plugin (No Auth Required)
-Access Microsoft documentation and learning resources:
-- **SearchDocumentation** - Search Microsoft Learn docs
-- **GetLearningPath** - Get learning path information
-- **GetCodeSamples** - Find code examples
-- **GetAzureServiceInfo** - Get Azure service documentation
-
-#### 3. Weather API Plugin (No Auth Required)
-Get weather information for any location:
-- **GetCurrentWeather** - Current weather conditions
-- **GetWeatherForecast** - 7-day forecast
-- **GetHourlyWeather** - Hourly forecast data
-- **GetHistoricalWeather** - Historical weather data
-- **GetWeatherForCity** - Weather by city name (e.g., "London", "Tokyo")
-- **GetMarineWeather** - Marine and coastal weather
-
-### How It Works
-
-1. User sends a message (e.g., "What's the weather in Seattle?" or "Show me my recent emails")
-2. Semantic Kernel analyzes the query and automatically selects the appropriate tool(s)
-3. The AI calls the selected function(s) with proper parameters
-4. Results are incorporated into the AI's response
-5. The complete answer is streamed back to the user
-
-**Example queries:**
-- "What's the weather forecast for Paris this week?"
-- "Search Microsoft Learn for Azure Functions tutorials"
-- "Show me my upcoming calendar events"
-- "Find my recent emails about the project"
-
-## Running the Application
-
-### Start Backend
-```bash
-cd espc25.local.llm/espc25.local.llm.Server
-dotnet run
-```
-
-#### Start Frontend (Development)
-```bash
-cd espc25.local.llm/espc25.local.llm.client
-npm run dev
-```
-
-#### Start Both (Production)
-```bash
-cd espc25.local.llm/espc25.local.llm.Server
-dotnet run
-# The backend will serve the React app at https://localhost:5001
-# frontend will be served at  https://localhost:54375/
-
-```
 
 ## Features
 
-### Chat Interface
-- **Multiple chat sessions** - Create and manage multiple conversations
-- **Real-time streaming** - AI responses stream in real-time using SSE
-- **File upload support** - Upload images, documents, and other files
-- **Message history** - All conversations are saved and persisted
-- **Responsive design** - Works on desktop and mobile devices
+- The main purpose: an SPFx chat webpart with Azure Functions and Semantic Kernel integration
+- Key technical components: real-time SSE communication, AI-powered capabilities
+- Backend architecture: Azure Functions with .NET 10, Semantic Kernel for orchestration
+- Functionality: function calling for dates, user info, and calendar data via Microsoft Graph
+- Security: Entra ID authentication
+- UI: Modern React with Fluent UI components
 
-### File Upload
-- **Multiple file types** - Images, PDFs, documents, text files
-- **File size display** - Shows file size and type
-- **Preview attachments** - View uploaded files in chat
-- **Drag and drop** - Easy file upload interface
 
-### Authentication
-- **Entra ID integration** - Enterprise-grade authentication
-- **Token management** - Automatic token refresh
-- **Secure API calls** - All API calls are authenticated
-- **Role-based access** - Can be extended for role-based permissions
+## Help
 
-### AI Integration
-- **Local LLM** - Uses Ollama for privacy and control
-- **Semantic Kernel** - Microsoft's AI orchestration framework
-- **Streaming responses** - Real-time AI response generation
-- **Context awareness** - Maintains conversation context
+We do not support samples directly, but we use GitHub to track issues and want to continuously improve these samples.
 
-## API Endpoints
+If you encounter any issues while using this sample, [create a new issue](https://github.com/pnp/sp-dev-fx-webparts/issues/new?assignees=&labels=Needs%3A+Triage+%3Amag%3A%2Ctype%3Abug-suspected%2Csample%3A%20react-copilot-retrieval-api&template=bug-report.yml&sample=react-copilot-retrieval-api&authors=@petkir&title=react-copilot-retrieval-api%20-%20).
 
-### Authentication Required
-All endpoints require a valid Bearer token from Entra ID.
+For questions regarding this sample, [create a new question](https://github.com/pnp/sp-dev-fx-webparts/issues/new?assignees=&labels=Needs%3A+Triage+%3Amag%3A%2Ctype%3Aquestion%2Csample%3A%20react-copilot-retrieval-api&template=question.yml&sample=react-copilot-retrieval-api&authors=@petkir&title=react-copilot-retrieval-api%20-%20).
 
-### Chat Endpoints
-- `GET /api/chat/sessions` - Get all chat sessions
-- `POST /api/chat/sessions` - Create a new chat session
-- `GET /api/chat/sessions/{id}` - Get specific chat session
-- `POST /api/chat/sessions/{id}/messages` - Send message (with files)
-- `GET /api/chat/attachments/{id}` - Get attachment file
+Finally, if you have an idea for improvement, [make a suggestion](https://github.com/pnp/sp-dev-fx-webparts/issues/new?assignees=&labels=Needs%3A+Triage+%3Amag%3A%2Ctype%3Aenhancement%2Csample%3A%20react-copilot-retrieval-api&template=question.yml&sample=react-copilot-retrieval-api&authors=@petkir&title=react-copilot-retrieval-api%20-%20).
 
-### Response Format
-All responses follow standard JSON format with proper error handling.
+## Disclaimer
 
-## Database Schema
+**THIS CODE IS PROVIDED *AS IS* WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.**
 
-### ChatSession
-- `Id` (Guid) - Primary key
-- `UserId` (string) - User identifier from Entra ID
-- `Title` (string) - Chat session title
-- `CreatedAt` (DateTime) - Creation timestamp
-- `UpdatedAt` (DateTime) - Last update timestamp
 
-### ChatMessage
-- `Id` (Guid) - Primary key
-- `ChatSessionId` (Guid) - Foreign key to ChatSession
-- `Role` (string) - "user" or "assistant"
-- `Content` (string) - Message content
-- `CreatedAt` (DateTime) - Creation timestamp
-
-### ChatAttachment
-- `Id` (Guid) - Primary key
-- `ChatMessageId` (Guid) - Foreign key to ChatMessage
-- `FileName` (string) - Original file name
-- `ContentType` (string) - MIME type
-- `FilePath` (string) - Server file path
-- `FileSize` (long) - File size in bytes
-- `CreatedAt` (DateTime) - Creation timestamp
-
-## Security Considerations
-
-1. **Authentication**: All API endpoints require valid Entra ID tokens
-2. **File Upload**: File types and sizes are validated
-3. **SQL Injection**: Uses parameterized queries via Entity Framework
-4. **XSS Protection**: React automatically escapes content
-5. **CORS**: Configured for specific origins only
-6. **File Storage**: Uploaded files are stored securely on server
-
-## Development Notes
-
-- Uses SQLite for development (easily replaceable with SQL Server/PostgreSQL)
-- Hot reload enabled for both frontend and backend
-- Comprehensive error handling and logging
-- TypeScript for type safety
-- ESLint for code quality
-- SASS for modern CSS preprocessing
-- Mantine components for consistent UI/UX
-- Light/Dark mode with system preference detection
-- localStorage for theme persistence
-- Responsive design with mobile-first approach
-
-## Deployment
-
-This application can be deployed to:
-- **Azure App Service** (recommended)
-- **Azure Container Apps**
-- **Docker containers**
-- **Traditional hosting**
-
-For production deployment, update connection strings and authentication URLs accordingly.
-
-## Troubleshooting
-
-### Common Issues
-
-1. **Ollama not responding**
-   - Ensure Ollama is running: `ollama serve`
-   - Check if model is available: `ollama list`
-
-2. **Authentication failures**
-   - Verify Azure AD configuration
-   - Check redirect URIs match exactly
-   - Ensure proper permissions are granted
-
-3. **File upload issues**
-   - Check file size limits
-   - Verify upload directory permissions
-   - Ensure supported file types
-
-4. **Database issues**
-   - Database is created automatically on first run
-   - Check connection string in appsettings.json
-   - Verify write permissions for SQLite file
-
-## Contributing
-
-Feel free to submit issues and enhancement requests!
+<img src="https://m365-visitor-stats.azurewebsites.net/sp-dev-fx-webparts/samples/react-copilot-retrieval-api" />
