@@ -2,5 +2,7 @@
     "demoTime.defaultFileType": "json",
     "workbench.statusBar.visible": true,
     "workbench.editor.showTabs": "multiple",
-    "workbench.activityBar.location": "default"
+    "workbench.activityBar.location": "default",
+    "demoTime.highlightBlur": 0,
+    "demoTime.highlightOpacity": 1
 }

@@ -185,6 +185,16 @@
       ]
     },
     {
+      "id": "demo-mipz13k9-4qof",
+      "title": "Open web URL",
+      "steps": [
+        {
+          "action": "openWebsite",
+          "url": "https://localhost:54375/"
+        }
+      ]
+    },
+    {
       "id": "demo-mif2fed3-3t35",
       "title": "close ollama",
       "steps": [

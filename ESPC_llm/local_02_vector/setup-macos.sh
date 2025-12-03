@@ -254,7 +254,7 @@ initialize_qdrant_documents() {
             else
                 print_error "Qdrant init project file not found"
             fi
-            cd ..
+            cd ../..
         else
             print_error "Qdrant init directory not found"
         fi
@@ -273,7 +273,7 @@ start_application() {
     else
         print_status "Starting backend server..."
         pwd
-        cd espc25.local.llm.Server
+        cd espc25.local.llm/espc25.local.llm.Server
         dotnet run &
         BACKEND_PID=$!
         cd ..
