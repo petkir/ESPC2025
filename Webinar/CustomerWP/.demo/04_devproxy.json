@@ -3,5 +3,100 @@
   "title": "04_DevProxy",
   "description": "Record and use and show 429 config sample is a public wether endpoint",
   "version": 3,
-  "scenes": []
+  "scenes": [
+    {
+      "id": "scene-mmw9s84a-4910",
+      "title": "Start DevProxy No Mocks",
+      "moves": [
+        {
+          "action": "openTerminal",
+          "terminalId": "devproxy"
+        },
+        {
+          "action": "executeTerminalCommand",
+          "terminalId": "devproxy",
+          "command": "cd devproxydemo"
+        },
+        {
+          "action": "executeTerminalCommand",
+          "terminalId": "devproxy",
+          "command": " devproxy --record --no-mocks"
+        }
+      ]
+    },
+    {
+      "id": "scene-mmw9wm8v-3fal",
+      "title": "Execute Request",
+      "moves": [
+        {
+          "action": "openTerminal",
+          "terminalId": "curltest"
+        },
+        {
+          "action": "executeTerminalCommand",
+          "terminalId": "curltest",
+          "command": "curl -ikx http://localhost:8000 \"https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current_weather=true\""
+        }
+      ]
+    },
+    {
+      "id": "demo-mmw9yxns-wojb",
+      "title": "Show Record",
+      "moves": [
+        {
+          "action": "focusTerminal",
+          "terminalId": "devproxy"
+        }
+      ]
+    },
+    {
+      "id": "scene-mmwa01nz-rois",
+      "title": "Start with mock",
+      "moves": [
+        {
+          "action": "closeTerminal",
+          "terminalId": "devproxy"
+        },
+        {
+          "action": "openTerminal",
+          "terminalId": "devproxymock"
+        },
+        {
+          "action": "executeTerminalCommand",
+          "terminalId": "devproxymock",
+          "command": "cd devproxydemo"
+        },
+        {
+          "action": "executeTerminalCommand",
+          "terminalId": "devproxymock",
+          "command": "devproxy --record "
+        }
+      ]
+    },
+    {
+      "id": "demo-mmwa58ol-tahz",
+      "title": "Execute Request Again",
+      "moves": [
+        {
+          "action": "openTerminal",
+          "terminalId": "curltest"
+        },
+        {
+          "action": "executeTerminalCommand",
+          "terminalId": "curltest",
+          "command": "curl -ikx http://localhost:8000 \"https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current_weather=true\""
+        }
+      ]
+    },
+    {
+      "id": "demo-mmwa6b9e-tkcx",
+      "title": "Show Record Mock",
+      "moves": [
+        {
+          "action": "focusTerminal",
+          "terminalId": "devproxymock"
+        }
+      ]
+    }
+  ]
 }

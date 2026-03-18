@@ -1,0 +1,38 @@
+{
+  "$schema": "https://raw.githubusercontent.com/dotnet/dev-proxy/main/schemas/v2.2.0/rc.schema.json",
+  "plugins": [
+    {
+      "name": "ExecutionSummaryPlugin",
+      "enabled": true,
+      "pluginPath": "~appFolder/plugins/DevProxy.Plugins.dll",
+      "configSection": "executionSummaryPlugin"
+    },
+    {
+      "name": "MockResponsePlugin",
+      "enabled": true,
+      "pluginPath": "~appFolder/plugins/DevProxy.Plugins.dll",
+      "configSection": "mocksPlugin"
+    },
+    {
+      "name": "MarkdownReporter",
+      "enabled": true,
+      "pluginPath": "~appFolder/plugins/DevProxy.Plugins.dll"
+    }
+  ],
+  "urlsToWatch": [
+    "https://api.open-meteo.com/*"
+  ],
+  "executionSummaryPlugin": {
+    "$schema": "https://raw.githubusercontent.com/dotnet/dev-proxy/main/schemas/v2.2.0/executionsummaryplugin.schema.json",
+    "groupBy": "url"
+  },
+  "mocksPlugin": {
+    "$schema": "https://raw.githubusercontent.com/dotnet/dev-proxy/main/schemas/v2.2.0/mockresponseplugin.schema.json",
+    "mocksFile": "mocks.json"
+  },
+  "rate": 0,
+  "logLevel": "information",
+  "newVersionNotification": "stable",
+  "showSkipMessages": true,
+  "showTimestamps": true
+}

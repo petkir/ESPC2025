@@ -12,7 +12,7 @@
         {
           "action": "highlight",
           "path": "package.json",
-          "position": "16:16",
+          "position": "17:17",
           "highlightWholeLine": true,
           "highlightBlur": 2,
           "highlightOpacity": 1

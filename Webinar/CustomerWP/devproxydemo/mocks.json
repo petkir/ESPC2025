@@ -1,0 +1,63 @@
+{
+  "$schema": "https://raw.githubusercontent.com/dotnet/dev-proxy/main/schemas/v2.2.0/mockresponseplugin.mocksfile.schema.json",
+  "mocks": [
+    {
+      "request": {
+        "nth": 3,
+        "url": "https://api.open-meteo.com/v1/forecast?*",
+        "method": "GET"
+      },
+      "response": {
+        "statusCode": 429,
+        "headers": [
+          {
+            "name": "content-type",
+            "value": "application/json; charset=utf-8"
+          },
+          {
+            "name": "retry-after",
+            "value": "10"
+          }
+        ],
+        "body": {
+          "error": true,
+          "code": "TooManyRequests",
+          "message": "Simulated 429 from Dev Proxy MockResponsePlugin",
+          "retryAfterSeconds": 10
+        }
+      }
+    },
+    {
+      "request": {
+        "url": "https://api.open-meteo.com/v1/forecast?*",
+        "method": "GET"
+      },
+      "response": {
+        "statusCode": 200,
+        "headers": [
+          {
+            "name": "content-type",
+            "value": "application/json; charset=utf-8"
+          }
+        ],
+        "body": {
+          "latitude": 52.52,
+          "longitude": 13.41,
+          "generationtime_ms": 0.1,
+          "utc_offset_seconds": 0,
+          "timezone": "GMT",
+          "timezone_abbreviation": "GMT",
+          "elevation": 38.0,
+          "current_weather": {
+            "temperature": 20.0,
+            "windspeed": 10.0,
+            "winddirection": 180,
+            "weathercode": 0,
+            "is_day": 1,
+            "time": "2026-01-01T12:00"
+          }
+        }
+      }
+    }
+  ]
+}
