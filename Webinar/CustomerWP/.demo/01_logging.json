@@ -1,0 +1,122 @@
+{
+  "$schema": "https://demotime.show/demo-time.schema.json",
+  "title": "01_Clientside Logging",
+  "description": "",
+  "version": 3,
+  "scenes": [
+    {
+      "id": "scene-mmvk04r6-7vv6",
+      "title": "Package",
+      "description": "we use here web but there is also an react version available",
+      "moves": [
+        {
+          "action": "highlight",
+          "path": "package.json",
+          "position": "16:16",
+          "highlightWholeLine": true,
+          "highlightBlur": 2,
+          "highlightOpacity": 1
+        }
+      ]
+    },
+    {
+      "id": "scene-mmvk6m98-yz0i",
+      "title": "TelemetryService",
+      "moves": [
+        {
+          "action": "highlight",
+          "path": "src/services/ApplicationInsightsTelemetryService.ts",
+          "position": "9:9",
+          "highlightWholeLine": true,
+          "highlightBlur": 2,
+          "highlightOpacity": 1
+        }
+      ]
+    },
+    {
+      "id": "demo-mmvk8svn-moyb",
+      "title": "TelementryInit",
+      "moves": [
+        {
+          "action": "highlight",
+          "path": "src/services/ApplicationInsightsTelemetryService.ts",
+          "position": "12:20",
+          "highlightWholeLine": true,
+          "highlightBlur": 2,
+          "highlightOpacity": 1
+        }
+      ]
+    },
+    {
+      "id": "demo-mmvkdrrt-1nn3",
+      "title": "Track Page",
+      "moves": [
+        {
+          "action": "highlight",
+          "path": "src/services/ApplicationInsightsTelemetryService.ts",
+          "position": "22:24",
+          "highlightWholeLine": true,
+          "highlightBlur": 2,
+          "highlightOpacity": 1
+        }
+      ]
+    },
+    {
+      "id": "demo-mmvkek5t-1y0v",
+      "title": "TrackErrors",
+      "moves": [
+        {
+          "action": "highlight",
+          "path": "src/services/ApplicationInsightsTelemetryService.ts",
+          "position": "26:28",
+          "highlightWholeLine": true,
+          "highlightBlur": 2,
+          "highlightOpacity": 1
+        }
+      ]
+    },
+    {
+      "id": "demo-mmvkgja2-k3g7",
+      "title": "ServiceContext",
+      "moves": [
+        {
+          "action": "highlight",
+          "path": "src/contexts/ServiceContext.tsx",
+          "position": "13:21",
+          "highlightWholeLine": true,
+          "highlightBlur": 2,
+          "highlightOpacity": 1
+        }
+      ]
+    },
+    {
+      "id": "demo-mmvkto4j-q977",
+      "title": "Form",
+      "description": "service context make a clean properties",
+      "moves": [
+        {
+          "action": "highlight",
+          "path": "src/components/CustomerRequestForm/CustomerRequestForm.tsx",
+          "position": "21:25",
+          "highlightWholeLine": true,
+          "highlightBlur": 2,
+          "highlightOpacity": 1
+        }
+      ]
+    },
+    {
+      "id": "demo-mmvkpiix-jsdd",
+      "title": "UseTrackPage",
+      "moves": [
+        {
+          "action": "highlight",
+          "path": "src/components/CustomerRequestForm/CustomerRequestForm.tsx",
+          "position": "43:49",
+          "highlightWholeLine": true,
+          "highlightBlur": 2,
+          "highlightOpacity": 1
+        }
+      ]
+    }
+  ]
+}

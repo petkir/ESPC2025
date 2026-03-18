@@ -1,0 +1,7 @@
+{
+  "$schema": "https://demotime.show/demo-time.schema.json",
+  "title": "04_DevProxy",
+  "description": "Record and use and show 429 config sample is a public wether endpoint",
+  "version": 3,
+  "scenes": []
+}

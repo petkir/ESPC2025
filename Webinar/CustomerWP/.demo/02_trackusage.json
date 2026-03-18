@@ -1,0 +1,88 @@
+{
+  "$schema": "https://demotime.show/demo-time.schema.json",
+  "title": "02_TrackUsage",
+  "description": "",
+  "version": 3,
+  "scenes": [
+    {
+      "id": "scene-mmvl1wsa-t87q",
+      "title": "Telemetrie Add tracking",
+      "moves": [
+        {
+          "action": "highlight",
+          "path": "src/services/ApplicationInsightsTelemetryService.ts",
+          "position": "30:40",
+          "highlightWholeLine": true,
+          "highlightBlur": 2,
+          "highlightOpacity": 1
+        }
+      ]
+    },
+    {
+      "id": "demo-mmvl8rv9-ir4b",
+      "title": "Add Logging to save",
+      "moves": [
+        {
+          "action": "highlight",
+          "path": "src/hooks/useCustomerRequestForm.ts",
+          "position": "122:123",
+          "highlightWholeLine": true,
+          "highlightBlur": 2,
+          "highlightOpacity": 1
+        }
+      ]
+    },
+    {
+      "id": "demo-mmvldza4-mq7k",
+      "title": "Log success",
+      "moves": [
+        {
+          "action": "highlight",
+          "path": "src/hooks/useCustomerRequestForm.ts",
+          "position": "147:153",
+          "highlightWholeLine": true,
+          "highlightBlur": 2,
+          "highlightOpacity": 1
+        }
+      ]
+    },
+    {
+      "id": "demo-mmvlisti-524t",
+      "title": "Log error action",
+      "moves": [
+        {
+          "action": "highlight",
+          "path": "src/hooks/useCustomerRequestForm.ts",
+          "position": "155:160",
+          "highlightWholeLine": true,
+          "highlightBlur": 2,
+          "highlightOpacity": 1
+        }
+      ]
+    },
+    {
+      "id": "scene-mmvlo1cn-n6of",
+      "title": "Use in form ",
+      "moves": [
+        {
+          "action": "highlight",
+          "path": "src/components/CustomerRequestForm/CustomerRequestForm.tsx",
+          "position": "79:79",
+          "highlightWholeLine": true
+        }
+      ]
+    },
+    {
+      "id": "demo-mmvlsc1d-li0k",
+      "title": "Use in form  with parameter",
+      "moves": [
+        {
+          "action": "highlight",
+          "path": "src/components/CustomerRequestForm/CustomerRequestForm.tsx",
+          "position": "66:72",
+          "highlightWholeLine": true
+        }
+      ]
+    }
+  ]
+}

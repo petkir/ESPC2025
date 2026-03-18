@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "customer-form-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/customerForm/CustomerFormWebPart.js",
+          "manifest": "./src/webparts/customerForm/CustomerFormWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "CustomerFormWebPartStrings": "lib/webparts/customerForm/loc/{locale}.js"
+  }
+}

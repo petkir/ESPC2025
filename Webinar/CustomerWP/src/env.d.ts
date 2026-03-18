@@ -1,0 +1,4 @@
+declare const CUSTOMERWP_SECTORS_LIST_TITLE: string;
+declare const CUSTOMERWP_REQUESTS_LIST_TITLE: string;
+declare const CUSTOMERWP_USE_MOCK_DATA: string;
+declare const CUSTOMERWP_APPINSIGHTS_CONNECTION_STRING: string;

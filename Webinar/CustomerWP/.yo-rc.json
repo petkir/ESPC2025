@@ -1,0 +1,19 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "useGulp": false,
+    "plusBeta": false,
+    "isCreatingSolution": true,
+    "nodeVersion": "22.14.0",
+    "sdksVersions": {},
+    "version": "1.22.2",
+    "libraryName": "customer-wp",
+    "libraryId": "6988e043-5b25-4f10-b93a-e6d16921401a",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "customer-wp",
+    "solutionShortDescription": "customer-wp description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "componentType": "webpart"
+  }
+}

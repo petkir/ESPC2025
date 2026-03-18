@@ -1,0 +1,31 @@
+@import '~@fluentui/react/dist/sass/References.scss';
+
+.container {
+  padding: 1em;
+  color: "[theme:bodyText, default: #323130]";
+  color: var(--bodyText);
+}
+
+.teams {
+  font-family: $ms-font-family-fallbacks;
+}
+
+.actions {
+  margin: 0 0 12px 0;
+}
+
+.fieldRow {
+  margin-bottom: 12px;
+}
+
+.success {
+  margin-bottom: 12px;
+}
+
+.error {
+  margin-bottom: 12px;
+}
+
+.errorText {
+  color: "[theme:errorText, default: #a4262c]";
+}
