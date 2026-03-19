@@ -20,7 +20,7 @@
         {
           "action": "executeTerminalCommand",
           "terminalId": "devproxy",
-          "command": " devproxy --record --no-mocks"
+          "command": " devproxy --record --no-mocks --as-system-proxy false"
         }
       ]
     },
@@ -69,7 +69,7 @@
         {
           "action": "executeTerminalCommand",
           "terminalId": "devproxymock",
-          "command": "devproxy --record "
+          "command": "devproxy --record --as-system-proxy false"
         }
       ]
     },
